@@ -1,0 +1,182 @@
+{
+  "name": "eu/bogoe/dtu/fullref/Custom",
+  "access": [
+    "public",
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [
+        "public"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "test",
+      "access": [
+        "public"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "kind": "array",
+            "type": {
+              "kind": "class",
+              "name": "java/lang/String",
+              "inner": null,
+              "args": [],
+              "annotations": []
+            },
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 2,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 1
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "static",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/autoimport/Manual"
+              },
+              "name": "method",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/Object"
+                }
+              ],
+              "returns": {
+                "kind": "class",
+                "name": "java/lang/String"
+              }
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "pop",
+            "words": 1
+          },
+          {
+            "offset": 5,
+            "opr": "load",
+            "type": "ref",
+            "index": 1
+          },
+          {
+            "offset": 6,
+            "opr": "invoke",
+            "access": "static",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/fullref/BuiltIns"
+              },
+              "name": "main",
+              "args": [
+                {
+                  "kind": "array",
+                  "type": {
+                    "kind": "class",
+                    "name": "java/lang/String"
+                  }
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

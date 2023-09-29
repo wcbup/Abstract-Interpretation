@@ -1,0 +1,320 @@
+{
+  "name": "eu/bogoe/dtu/nostringsattached/NoComments",
+  "access": [
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "main",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "kind": "array",
+            "type": {
+              "kind": "class",
+              "name": "java/lang/String",
+              "inner": null,
+              "args": [],
+              "annotations": []
+            },
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 2,
+        "max_locals": 2,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "new",
+            "class": "eu/bogoe/dtu/nostringsattached/Ref1"
+          },
+          {
+            "offset": 3,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 4,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/nostringsattached/Ref1"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 7,
+            "opr": "store",
+            "type": "ref",
+            "index": 1
+          },
+          {
+            "offset": 8,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "regexChallanges",
+      "access": [],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 2,
+        "max_locals": 9,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "code // Comment"
+            }
+          },
+          {
+            "offset": 2,
+            "opr": "store",
+            "type": "ref",
+            "index": 1
+          },
+          {
+            "offset": 3,
+            "opr": "new",
+            "class": "eu/bogoe/dtu/nostringsattached/Ref3"
+          },
+          {
+            "offset": 6,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 7,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/nostringsattached/Ref3"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 10,
+            "opr": "store",
+            "type": "ref",
+            "index": 2
+          },
+          {
+            "offset": 11,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "code /* Comment */ code"
+            }
+          },
+          {
+            "offset": 13,
+            "opr": "store",
+            "type": "ref",
+            "index": 3
+          },
+          {
+            "offset": 14,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "code /* Comment"
+            }
+          },
+          {
+            "offset": 16,
+            "opr": "store",
+            "type": "ref",
+            "index": 4
+          },
+          {
+            "offset": 18,
+            "opr": "new",
+            "class": "eu/bogoe/dtu/nostringsattached/Ref4"
+          },
+          {
+            "offset": 21,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 22,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/nostringsattached/Ref4"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 25,
+            "opr": "store",
+            "type": "ref",
+            "index": 5
+          },
+          {
+            "offset": 27,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Comment */ code"
+            }
+          },
+          {
+            "offset": 29,
+            "opr": "store",
+            "type": "ref",
+            "index": 6
+          },
+          {
+            "offset": 31,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": " \" new Ref2() \" "
+            }
+          },
+          {
+            "offset": 33,
+            "opr": "store",
+            "type": "ref",
+            "index": 7
+          },
+          {
+            "offset": 35,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": " import eu.bogoe.dtu.nostringsattached.Ref2; "
+            }
+          },
+          {
+            "offset": 37,
+            "opr": "store",
+            "type": "ref",
+            "index": 8
+          },
+          {
+            "offset": 39,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "eu/bogoe/dtu/noclasses/Interface2",
+  "access": [
+    "interface",
+    "abstract"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [],
+  "methods": [
+    {
+      "name": "method2",
+      "access": [
+        "public",
+        "abstract"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "kind": "class",
+            "name": "eu/bogoe/dtu/noclasses/Country",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": null,
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

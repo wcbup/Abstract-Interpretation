@@ -1,0 +1,250 @@
+{
+  "name": "eu/bogoe/dtu/nestednightmare/Night$Meal",
+  "access": [
+    "public",
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [
+        "public"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "kind": "class",
+            "name": "eu/bogoe/dtu/nestednightmare/Night",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 2,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "eat",
+      "access": [
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 2,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "get",
+            "static": true,
+            "field": {
+              "class": "java/lang/System",
+              "name": "out",
+              "type": {
+                "kind": "class",
+                "name": "java/io/PrintStream"
+              }
+            }
+          },
+          {
+            "offset": 3,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 4,
+            "opr": "invoke",
+            "access": "dynamic",
+            "index": 0,
+            "method": {
+              "name": "makeConcatWithConstants",
+              "args": [
+                "int"
+              ],
+              "returns": {
+                "kind": "class",
+                "name": "java/lang/String"
+              }
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "invoke",
+            "access": "virtual",
+            "method": {
+              "ref": {
+                "kind": "class",
+                "name": "java/io/PrintStream"
+              },
+              "name": "println",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 12,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [
+    {
+      "index": 0,
+      "method": {
+        "handle": {
+          "handletype": "method",
+          "kind": "static",
+          "method": {
+            "is_interface": false,
+            "ref": {
+              "kind": "class",
+              "name": "java/lang/invoke/StringConcatFactory"
+            },
+            "name": "makeConcatWithConstants",
+            "args": [
+              {
+                "kind": "class",
+                "name": "java/lang/invoke/MethodHandles$Lookup"
+              },
+              {
+                "kind": "class",
+                "name": "java/lang/String"
+              },
+              {
+                "kind": "class",
+                "name": "java/lang/invoke/MethodType"
+              },
+              {
+                "kind": "class",
+                "name": "java/lang/String"
+              },
+              {
+                "kind": "array",
+                "type": {
+                  "kind": "class",
+                  "name": "java/lang/Object"
+                }
+              }
+            ],
+            "returns": {
+              "kind": "class",
+              "name": "java/lang/invoke/CallSite"
+            }
+          }
+        },
+        "args": [
+          {
+            "type": "string",
+            "value": "Eating \u0001 grams of food."
+          }
+        ]
+      }
+    }
+  ],
+  "enclosingmethod": null,
+  "innerclasses": [
+    {
+      "class": "eu/bogoe/dtu/nestednightmare/Night$Meal",
+      "outer": "eu/bogoe/dtu/nestednightmare/Night",
+      "name": "Meal",
+      "access": [
+        "public"
+      ]
+    },
+    {
+      "class": "java/lang/invoke/MethodHandles$Lookup",
+      "outer": "java/lang/invoke/MethodHandles",
+      "name": "Lookup",
+      "access": [
+        "public",
+        "static",
+        "final"
+      ]
+    }
+  ],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

@@ -1,0 +1,1715 @@
+{
+  "name": "eu/bogoe/dtu/exceptional/Throws",
+  "access": [
+    "public",
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [
+    {
+      "name": "$assertionsDisabled",
+      "access": [
+        "static",
+        "final",
+        "synthetic"
+      ],
+      "type": {
+        "base": "boolean",
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [
+        "public"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "alwaysThrows1",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": {
+          "base": "int"
+        },
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 0,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 3,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 4,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Straight forward"
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "throw"
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "alwaysThrows2",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 8,
+            "type": "same"
+          },
+          {
+            "index": 16,
+            "type": "same"
+          },
+          {
+            "index": 21,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "get",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/exceptional/Throws",
+              "name": "$assertionsDisabled",
+              "type": "boolean"
+            }
+          },
+          {
+            "offset": 3,
+            "opr": "ifz",
+            "condition": "ne",
+            "target": 8
+          },
+          {
+            "offset": 6,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 7,
+            "opr": "ifz",
+            "condition": "gt",
+            "target": 8
+          },
+          {
+            "offset": 10,
+            "opr": "new",
+            "class": "java/lang/AssertionError"
+          },
+          {
+            "offset": 13,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 14,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/AssertionError"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 17,
+            "opr": "throw"
+          },
+          {
+            "offset": 18,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 19,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 20,
+            "opr": "binary",
+            "type": "int",
+            "operant": "sub"
+          },
+          {
+            "offset": 21,
+            "opr": "ifz",
+            "condition": "le",
+            "target": 16
+          },
+          {
+            "offset": 24,
+            "opr": "get",
+            "static": true,
+            "field": {
+              "class": "java/lang/System",
+              "name": "out",
+              "type": {
+                "kind": "class",
+                "name": "java/io/PrintStream"
+              }
+            }
+          },
+          {
+            "offset": 27,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Ok"
+            }
+          },
+          {
+            "offset": 29,
+            "opr": "invoke",
+            "access": "virtual",
+            "method": {
+              "ref": {
+                "kind": "class",
+                "name": "java/io/PrintStream"
+              },
+              "name": "println",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 32,
+            "opr": "goto",
+            "target": 21
+          },
+          {
+            "offset": 35,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 38,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 39,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Error"
+            }
+          },
+          {
+            "offset": 41,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 44,
+            "opr": "throw"
+          },
+          {
+            "offset": 45,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "alwaysThrows3",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 5,
+            "type": "same"
+          },
+          {
+            "index": 11,
+            "type": "same"
+          },
+          {
+            "index": 12,
+            "type": "same"
+          },
+          {
+            "index": 19,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "ifz",
+            "condition": "ne",
+            "target": 5
+          },
+          {
+            "offset": 4,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 3
+            }
+          },
+          {
+            "offset": 5,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 6,
+            "opr": "goto",
+            "target": 12
+          },
+          {
+            "offset": 9,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 10,
+            "opr": "ifz",
+            "condition": "ge",
+            "target": 11
+          },
+          {
+            "offset": 13,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 14,
+            "opr": "negate",
+            "type": "int"
+          },
+          {
+            "offset": 15,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 16,
+            "opr": "goto",
+            "target": 12
+          },
+          {
+            "offset": 19,
+            "opr": "incr",
+            "index": 0,
+            "amount": 1
+          },
+          {
+            "offset": 22,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 23,
+            "opr": "ifz",
+            "condition": "le",
+            "target": 19
+          },
+          {
+            "offset": 26,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 29,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 30,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Positive Test"
+            }
+          },
+          {
+            "offset": 32,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 35,
+            "opr": "throw"
+          },
+          {
+            "offset": 36,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "dependsOnLattice1",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        },
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 2,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 4,
+            "type": "same"
+          },
+          {
+            "index": 12,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 2,
+            "opr": "if",
+            "condition": "le",
+            "target": 4
+          },
+          {
+            "offset": 5,
+            "opr": "return",
+            "type": null
+          },
+          {
+            "offset": 6,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 7,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 8,
+            "opr": "if",
+            "condition": "le",
+            "target": 12
+          },
+          {
+            "offset": 11,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 14,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 15,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Straight forward"
+            }
+          },
+          {
+            "offset": 17,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 20,
+            "opr": "throw"
+          },
+          {
+            "offset": 21,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "dependsOnLattice2",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 11,
+            "type": "append_frame",
+            "info": [
+              {
+                "type": "integer"
+              }
+            ]
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "offset": 1,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 2,
+            "opr": "incr",
+            "index": 0,
+            "amount": 1
+          },
+          {
+            "offset": 5,
+            "opr": "incr",
+            "index": 0,
+            "amount": -1
+          },
+          {
+            "offset": 8,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 9,
+            "opr": "ifz",
+            "condition": "eq",
+            "target": 11
+          },
+          {
+            "offset": 12,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 15,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 16,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "How?"
+            }
+          },
+          {
+            "offset": 18,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 21,
+            "opr": "throw"
+          },
+          {
+            "offset": 22,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "dependsOnLattice3",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        },
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 2,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 0,
+            "type": "same"
+          },
+          {
+            "index": 8,
+            "type": "same"
+          },
+          {
+            "index": 15,
+            "type": "same"
+          },
+          {
+            "index": 26,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "ifz",
+            "condition": "lt",
+            "target": 8
+          },
+          {
+            "offset": 4,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 5,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "binary",
+            "type": "int",
+            "operant": "div"
+          },
+          {
+            "offset": 7,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 8,
+            "opr": "incr",
+            "index": 0,
+            "amount": -1
+          },
+          {
+            "offset": 11,
+            "opr": "goto",
+            "target": 0
+          },
+          {
+            "offset": 14,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 15,
+            "opr": "ifz",
+            "condition": "ge",
+            "target": 15
+          },
+          {
+            "offset": 18,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 19,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 20,
+            "opr": "binary",
+            "type": "int",
+            "operant": "div"
+          },
+          {
+            "offset": 21,
+            "opr": "store",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 22,
+            "opr": "goto",
+            "target": 8
+          },
+          {
+            "offset": 25,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 26,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 27,
+            "opr": "binary",
+            "type": "int",
+            "operant": "mul"
+          },
+          {
+            "offset": 28,
+            "opr": "store",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 29,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 30,
+            "opr": "ifz",
+            "condition": "ne",
+            "target": 26
+          },
+          {
+            "offset": 33,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 36,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 37,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "..."
+            }
+          },
+          {
+            "offset": 39,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 42,
+            "opr": "throw"
+          },
+          {
+            "offset": 43,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "neverThrows1",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 8,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 2,
+            "opr": "if",
+            "condition": "eq",
+            "target": 8
+          },
+          {
+            "offset": 5,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 8,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 9,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "false"
+            }
+          },
+          {
+            "offset": 11,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 14,
+            "opr": "throw"
+          },
+          {
+            "offset": 15,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "neverThrows2",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        },
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 2,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 0,
+            "type": "same"
+          },
+          {
+            "index": 8,
+            "type": "same"
+          },
+          {
+            "index": 16,
+            "type": "same"
+          },
+          {
+            "index": 21,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "ifz",
+            "condition": "lt",
+            "target": 8
+          },
+          {
+            "offset": 4,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 5,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "binary",
+            "type": "int",
+            "operant": "div"
+          },
+          {
+            "offset": 7,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 8,
+            "opr": "incr",
+            "index": 0,
+            "amount": -1
+          },
+          {
+            "offset": 11,
+            "opr": "goto",
+            "target": 0
+          },
+          {
+            "offset": 14,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 15,
+            "opr": "ifz",
+            "condition": "gt",
+            "target": 16
+          },
+          {
+            "offset": 18,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 19,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 20,
+            "opr": "binary",
+            "type": "int",
+            "operant": "div"
+          },
+          {
+            "offset": 21,
+            "opr": "store",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 22,
+            "opr": "incr",
+            "index": 1,
+            "amount": 1
+          },
+          {
+            "offset": 25,
+            "opr": "goto",
+            "target": 8
+          },
+          {
+            "offset": 28,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 29,
+            "opr": "ifz",
+            "condition": "ge",
+            "target": 21
+          },
+          {
+            "offset": 32,
+            "opr": "load",
+            "type": "int",
+            "index": 1
+          },
+          {
+            "offset": 33,
+            "opr": "ifz",
+            "condition": "le",
+            "target": 21
+          },
+          {
+            "offset": 36,
+            "opr": "return",
+            "type": null
+          },
+          {
+            "offset": 37,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 40,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 41,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "How?"
+            }
+          },
+          {
+            "offset": 43,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 46,
+            "opr": "throw"
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "neverThrows3",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 5,
+            "type": "same"
+          },
+          {
+            "index": 11,
+            "type": "same"
+          },
+          {
+            "index": 12,
+            "type": "same"
+          },
+          {
+            "index": 19,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "ifz",
+            "condition": "ne",
+            "target": 5
+          },
+          {
+            "offset": 4,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 3
+            }
+          },
+          {
+            "offset": 5,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 6,
+            "opr": "goto",
+            "target": 12
+          },
+          {
+            "offset": 9,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 10,
+            "opr": "ifz",
+            "condition": "ge",
+            "target": 11
+          },
+          {
+            "offset": 13,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 14,
+            "opr": "negate",
+            "type": "int"
+          },
+          {
+            "offset": 15,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 16,
+            "opr": "goto",
+            "target": 12
+          },
+          {
+            "offset": 19,
+            "opr": "incr",
+            "index": 0,
+            "amount": 1
+          },
+          {
+            "offset": 22,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 23,
+            "opr": "ifz",
+            "condition": "gt",
+            "target": 19
+          },
+          {
+            "offset": 26,
+            "opr": "new",
+            "class": "java/lang/UnsupportedOperationException"
+          },
+          {
+            "offset": 29,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 30,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Negative Test"
+            }
+          },
+          {
+            "offset": 32,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/UnsupportedOperationException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 35,
+            "opr": "throw"
+          },
+          {
+            "offset": 36,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "<clinit>",
+      "access": [
+        "static"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 0,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 5,
+            "type": "same"
+          },
+          {
+            "index": 6,
+            "type": "same_locals_1_stack_item_frame",
+            "info": {
+              "type": "integer"
+            }
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": {
+              "type": "class",
+              "value": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/exceptional/Throws"
+              }
+            }
+          },
+          {
+            "offset": 2,
+            "opr": "invoke",
+            "access": "virtual",
+            "method": {
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Class"
+              },
+              "name": "desiredAssertionStatus",
+              "args": [],
+              "returns": "boolean"
+            }
+          },
+          {
+            "offset": 5,
+            "opr": "ifz",
+            "condition": "ne",
+            "target": 5
+          },
+          {
+            "offset": 8,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "goto",
+            "target": 6
+          },
+          {
+            "offset": 12,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "offset": 13,
+            "opr": "put",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/exceptional/Throws",
+              "name": "$assertionsDisabled",
+              "type": "boolean"
+            }
+          },
+          {
+            "offset": 16,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

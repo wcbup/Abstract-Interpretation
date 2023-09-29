@@ -1,0 +1,295 @@
+{
+  "name": "eu/bogoe/dtu/Casting",
+  "access": [
+    "public",
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [
+        "public"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "simpleDataTypes",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": {
+          "base": "int"
+        },
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 5,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "cast",
+            "from": "int",
+            "to": "float"
+          },
+          {
+            "offset": 2,
+            "opr": "store",
+            "type": "float",
+            "index": 1
+          },
+          {
+            "offset": 3,
+            "opr": "load",
+            "type": "float",
+            "index": 1
+          },
+          {
+            "offset": 4,
+            "opr": "cast",
+            "from": "float",
+            "to": "int"
+          },
+          {
+            "offset": 5,
+            "opr": "cast",
+            "from": "int",
+            "to": "short"
+          },
+          {
+            "offset": 6,
+            "opr": "store",
+            "type": "int",
+            "index": 2
+          },
+          {
+            "offset": 7,
+            "opr": "load",
+            "type": "int",
+            "index": 2
+          },
+          {
+            "offset": 8,
+            "opr": "cast",
+            "from": "int",
+            "to": "byte"
+          },
+          {
+            "offset": 9,
+            "opr": "store",
+            "type": "int",
+            "index": 3
+          },
+          {
+            "offset": 10,
+            "opr": "load",
+            "type": "int",
+            "index": 3
+          },
+          {
+            "offset": 11,
+            "opr": "cast",
+            "from": "int",
+            "to": "char"
+          },
+          {
+            "offset": 12,
+            "opr": "store",
+            "type": "int",
+            "index": 4
+          },
+          {
+            "offset": 14,
+            "opr": "load",
+            "type": "int",
+            "index": 4
+          },
+          {
+            "offset": 16,
+            "opr": "return",
+            "type": "int"
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "reference",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "kind": "class",
+            "name": "java/lang/String",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": {
+          "kind": "class",
+          "name": "java/lang/String",
+          "inner": null,
+          "args": []
+        },
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 3,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "store",
+            "type": "ref",
+            "index": 1
+          },
+          {
+            "offset": 2,
+            "opr": "load",
+            "type": "ref",
+            "index": 1
+          },
+          {
+            "offset": 3,
+            "opr": "checkcast",
+            "type": {
+              "kind": "class",
+              "name": "java/lang/String"
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "store",
+            "type": "ref",
+            "index": 2
+          },
+          {
+            "offset": 7,
+            "opr": "load",
+            "type": "ref",
+            "index": 2
+          },
+          {
+            "offset": 8,
+            "opr": "return",
+            "type": "ref"
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

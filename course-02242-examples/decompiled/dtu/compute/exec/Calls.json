@@ -1,0 +1,311 @@
+{
+  "name": "dtu/compute/exec/Calls",
+  "access": [
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "helloWorld",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 2,
+        "max_locals": 0,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "get",
+            "static": true,
+            "field": {
+              "class": "java/lang/System",
+              "name": "out",
+              "type": {
+                "kind": "class",
+                "name": "java/io/PrintStream"
+              }
+            }
+          },
+          {
+            "offset": 3,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Hello, World!\n"
+            }
+          },
+          {
+            "offset": 5,
+            "opr": "invoke",
+            "access": "virtual",
+            "method": {
+              "ref": {
+                "kind": "class",
+                "name": "java/io/PrintStream"
+              },
+              "name": "println",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 8,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "fib",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": {
+          "base": "int"
+        },
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 5,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 2,
+            "opr": "if",
+            "condition": "ge",
+            "target": 5
+          },
+          {
+            "offset": 5,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "return",
+            "type": "int"
+          },
+          {
+            "offset": 7,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 8,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "binary",
+            "type": "int",
+            "operant": "sub"
+          },
+          {
+            "offset": 10,
+            "opr": "invoke",
+            "access": "static",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "dtu/compute/exec/Calls"
+              },
+              "name": "fib",
+              "args": [
+                "int"
+              ],
+              "returns": "int"
+            }
+          },
+          {
+            "offset": 13,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 14,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 15,
+            "opr": "binary",
+            "type": "int",
+            "operant": "sub"
+          },
+          {
+            "offset": 16,
+            "opr": "invoke",
+            "access": "static",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "dtu/compute/exec/Calls"
+              },
+              "name": "fib",
+              "args": [
+                "int"
+              ],
+              "returns": "int"
+            }
+          },
+          {
+            "offset": 19,
+            "opr": "binary",
+            "type": "int",
+            "operant": "add"
+          },
+          {
+            "offset": 20,
+            "opr": "return",
+            "type": "int"
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "dtu/compute/exec/Case",
+          "is_runtime_visible": false,
+          "values": {}
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

@@ -1,0 +1,1023 @@
+{
+  "name": "eu/bogoe/dtu/noclasses/Country",
+  "access": [
+    "public",
+    "final",
+    "super",
+    "enum"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Enum",
+    "inner": null,
+    "args": [
+      {
+        "kind": "simple",
+        "type": {
+          "kind": "class",
+          "name": "eu/bogoe/dtu/noclasses/Country",
+          "inner": null,
+          "args": []
+        },
+        "annotations": []
+      }
+    ],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [
+    {
+      "name": "DENMARK",
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "type": {
+        "kind": "class",
+        "name": "eu/bogoe/dtu/noclasses/Country",
+        "inner": null,
+        "args": [],
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    },
+    {
+      "name": "SWEDEN",
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "type": {
+        "kind": "class",
+        "name": "eu/bogoe/dtu/noclasses/Country",
+        "inner": null,
+        "args": [],
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    },
+    {
+      "name": "NORWAY",
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "type": {
+        "kind": "class",
+        "name": "eu/bogoe/dtu/noclasses/Country",
+        "inner": null,
+        "args": [],
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    },
+    {
+      "name": "country",
+      "access": [
+        "public"
+      ],
+      "type": {
+        "kind": "class",
+        "name": "java/lang/String",
+        "inner": null,
+        "args": [],
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    },
+    {
+      "name": "language",
+      "access": [
+        "public"
+      ],
+      "type": {
+        "kind": "class",
+        "name": "java/lang/String",
+        "inner": null,
+        "args": [],
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    },
+    {
+      "name": "phone",
+      "access": [
+        "public"
+      ],
+      "type": {
+        "base": "int",
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    },
+    {
+      "name": "$VALUES",
+      "access": [
+        "private",
+        "static",
+        "final",
+        "synthetic"
+      ],
+      "type": {
+        "kind": "array",
+        "type": {
+          "kind": "class",
+          "name": "eu/bogoe/dtu/noclasses/Country",
+          "inner": null,
+          "args": [],
+          "annotations": []
+        },
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "values",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": {
+          "kind": "array",
+          "type": {
+            "kind": "class",
+            "name": "eu/bogoe/dtu/noclasses/Country",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          }
+        },
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 0,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "get",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "$VALUES",
+              "type": {
+                "kind": "array",
+                "type": {
+                  "kind": "class",
+                  "name": "eu/bogoe/dtu/noclasses/Country"
+                }
+              }
+            }
+          },
+          {
+            "offset": 3,
+            "opr": "invoke",
+            "access": "virtual",
+            "method": {
+              "ref": {
+                "kind": "array",
+                "type": {
+                  "kind": "class",
+                  "name": "eu/bogoe/dtu/noclasses/Country"
+                }
+              },
+              "name": "clone",
+              "args": [],
+              "returns": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              }
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "checkcast",
+            "type": {
+              "kind": "array",
+              "type": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              }
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "return",
+            "type": "ref"
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "valueOf",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "kind": "class",
+            "name": "java/lang/String",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": {
+          "kind": "class",
+          "name": "eu/bogoe/dtu/noclasses/Country",
+          "inner": null,
+          "args": []
+        },
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 2,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": {
+              "type": "class",
+              "value": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              }
+            }
+          },
+          {
+            "offset": 2,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 3,
+            "opr": "invoke",
+            "access": "static",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Enum"
+              },
+              "name": "valueOf",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/Class"
+                },
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": {
+                "kind": "class",
+                "name": "java/lang/Enum"
+              }
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "checkcast",
+            "type": {
+              "kind": "class",
+              "name": "eu/bogoe/dtu/noclasses/Country"
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "return",
+            "type": "ref"
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "<init>",
+      "access": [
+        "private"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": false,
+          "type": {
+            "kind": "class",
+            "name": "java/lang/String",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          },
+          "annotations": []
+        },
+        {
+          "visible": false,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        },
+        {
+          "visible": true,
+          "type": {
+            "kind": "class",
+            "name": "java/lang/String",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          },
+          "annotations": []
+        },
+        {
+          "visible": true,
+          "type": {
+            "kind": "class",
+            "name": "java/lang/String",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          },
+          "annotations": []
+        },
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 6,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "load",
+            "type": "ref",
+            "index": 1
+          },
+          {
+            "offset": 2,
+            "opr": "load",
+            "type": "int",
+            "index": 2
+          },
+          {
+            "offset": 3,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Enum"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                "int"
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 7,
+            "opr": "load",
+            "type": "ref",
+            "index": 3
+          },
+          {
+            "offset": 8,
+            "opr": "put",
+            "static": false,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "country",
+              "type": {
+                "kind": "class",
+                "name": "java/lang/String"
+              }
+            }
+          },
+          {
+            "offset": 11,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 12,
+            "opr": "load",
+            "type": "ref",
+            "index": 4
+          },
+          {
+            "offset": 14,
+            "opr": "put",
+            "static": false,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "language",
+              "type": {
+                "kind": "class",
+                "name": "java/lang/String"
+              }
+            }
+          },
+          {
+            "offset": 17,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 18,
+            "opr": "load",
+            "type": "int",
+            "index": 5
+          },
+          {
+            "offset": 20,
+            "opr": "put",
+            "static": false,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "phone",
+              "type": "int"
+            }
+          },
+          {
+            "offset": 23,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "$values",
+      "access": [
+        "private",
+        "static",
+        "synthetic"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": {
+          "kind": "array",
+          "type": {
+            "kind": "class",
+            "name": "eu/bogoe/dtu/noclasses/Country",
+            "inner": null,
+            "args": [],
+            "annotations": []
+          }
+        },
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 4,
+        "max_locals": 0,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 3
+            }
+          },
+          {
+            "offset": 1,
+            "opr": "newarray",
+            "dim": 1,
+            "type": {
+              "kind": "class",
+              "name": "eu/bogoe/dtu/noclasses/Country"
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 5,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "get",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "DENMARK",
+              "type": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              }
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "array_store",
+            "type": "ref"
+          },
+          {
+            "offset": 10,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 11,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 12,
+            "opr": "get",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "SWEDEN",
+              "type": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              }
+            }
+          },
+          {
+            "offset": 15,
+            "opr": "array_store",
+            "type": "ref"
+          },
+          {
+            "offset": 16,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 17,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 18,
+            "opr": "get",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "NORWAY",
+              "type": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              }
+            }
+          },
+          {
+            "offset": 21,
+            "opr": "array_store",
+            "type": "ref"
+          },
+          {
+            "offset": 22,
+            "opr": "return",
+            "type": "ref"
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "<clinit>",
+      "access": [
+        "static"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 7,
+        "max_locals": 0,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "new",
+            "class": "eu/bogoe/dtu/noclasses/Country"
+          },
+          {
+            "offset": 3,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 4,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "DENMARK"
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "offset": 7,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Denmark"
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Danish"
+            }
+          },
+          {
+            "offset": 11,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 45
+            }
+          },
+          {
+            "offset": 13,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                "int",
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                "int"
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 16,
+            "opr": "put",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "DENMARK",
+              "type": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              }
+            }
+          },
+          {
+            "offset": 19,
+            "opr": "new",
+            "class": "eu/bogoe/dtu/noclasses/Country"
+          },
+          {
+            "offset": 22,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 23,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "SWEDEN"
+            }
+          },
+          {
+            "offset": 25,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 26,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Sweden"
+            }
+          },
+          {
+            "offset": 28,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Swedish"
+            }
+          },
+          {
+            "offset": 30,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 46
+            }
+          },
+          {
+            "offset": 32,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                "int",
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                "int"
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 35,
+            "opr": "put",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "SWEDEN",
+              "type": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              }
+            }
+          },
+          {
+            "offset": 38,
+            "opr": "new",
+            "class": "eu/bogoe/dtu/noclasses/Country"
+          },
+          {
+            "offset": 41,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 42,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "NORWAY"
+            }
+          },
+          {
+            "offset": 44,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 45,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Norway"
+            }
+          },
+          {
+            "offset": 47,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "Norwegian"
+            }
+          },
+          {
+            "offset": 49,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 47
+            }
+          },
+          {
+            "offset": 51,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                "int",
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                "int"
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 54,
+            "opr": "put",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "NORWAY",
+              "type": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              }
+            }
+          },
+          {
+            "offset": 57,
+            "opr": "invoke",
+            "access": "static",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/noclasses/Country"
+              },
+              "name": "$values",
+              "args": [],
+              "returns": {
+                "kind": "array",
+                "type": {
+                  "kind": "class",
+                  "name": "eu/bogoe/dtu/noclasses/Country"
+                }
+              }
+            }
+          },
+          {
+            "offset": 60,
+            "opr": "put",
+            "static": true,
+            "field": {
+              "class": "eu/bogoe/dtu/noclasses/Country",
+              "name": "$VALUES",
+              "type": {
+                "kind": "array",
+                "type": {
+                  "kind": "class",
+                  "name": "eu/bogoe/dtu/noclasses/Country"
+                }
+              }
+            }
+          },
+          {
+            "offset": 63,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

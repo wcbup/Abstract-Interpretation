@@ -1,0 +1,156 @@
+{
+  "name": "eu/bogoe/dtu/nestednightmare/Night$Mare",
+  "access": [
+    "public",
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [
+        "public"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "wakeUp",
+      "access": [],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "new",
+            "class": "java/lang/SecurityException"
+          },
+          {
+            "offset": 3,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 4,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "import eu.bogoe.dtu.nestednightmare.Night.Mare;"
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/SecurityException"
+              },
+              "name": "<init>",
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                }
+              ],
+              "returns": null
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "throw"
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [
+        {
+          "kind": "class",
+          "name": "java/lang/SecurityException",
+          "inner": null,
+          "args": [],
+          "annotations": []
+        }
+      ],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [
+    {
+      "class": "eu/bogoe/dtu/nestednightmare/Night$Mare",
+      "outer": "eu/bogoe/dtu/nestednightmare/Night",
+      "name": "Mare",
+      "access": [
+        "public",
+        "static"
+      ]
+    }
+  ],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}

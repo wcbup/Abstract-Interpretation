@@ -1,0 +1,132 @@
+{
+  "name": "eu/bogoe/dtu/multiclassfile/B",
+  "access": [
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [
+    {
+      "name": "j",
+      "access": [
+        "public"
+      ],
+      "type": {
+        "kind": "class",
+        "name": "eu/bogoe/dtu/multiclassfile/J",
+        "inner": null,
+        "args": [],
+        "annotations": []
+      },
+      "value": null,
+      "annotations": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 3,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 5,
+            "opr": "new",
+            "class": "eu/bogoe/dtu/multiclassfile/J"
+          },
+          {
+            "offset": 8,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 9,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/multiclassfile/J"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 12,
+            "opr": "put",
+            "static": false,
+            "field": {
+              "class": "eu/bogoe/dtu/multiclassfile/B",
+              "name": "j",
+              "type": {
+                "kind": "class",
+                "name": "eu/bogoe/dtu/multiclassfile/J"
+              }
+            }
+          },
+          {
+            "offset": 15,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}
