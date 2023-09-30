@@ -138,6 +138,22 @@ class AbstractInterpreter:
                     
                     case _:
                         raise Exception(value_type)
+            
+            case "load":
+                load_type: str = operation_json["type"]
+                match load_type:
+                    case "int":
+                        load_index: int = operation_json["index"]
+                        top_stack.operate_stack.append(
+                            deepcopy(top_stack.local_variables[load_index])
+                        )
+                        self.log_operation(
+                            f"{opr_type}, type: {load_type}, index: {load_index}"
+                        )
+                    
+                    case _:
+                        raise Exception(load_type)
+
             case _:
                 raise Exception(opr_type)
 
@@ -191,7 +207,7 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "dtu/compute/exec/Simple", "zero"
+        "course-02242-examples", "dtu/compute/exec/Simple", "identity"
     )
-    java_interpreter = AbstractInterpreter(java_program, [])
+    java_interpreter = AbstractInterpreter(java_program, [AbstractVariable(AbstractType.ANY)])
     java_interpreter.run()
