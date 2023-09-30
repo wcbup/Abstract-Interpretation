@@ -61,8 +61,25 @@ class AbstractVariable:
         else:
             raise Exception(b)
 
-    def __radd(self, a: AbstractVariable | int) -> AbstractVariable:
+    def __radd__(self, a: AbstractVariable | int) -> AbstractVariable:
         return self.__add__(a)
+    
+    def __gt__(self, b: AbstractVariable) -> bool | None:
+        if isinstance(b, AbstractVariable):
+            match self.type:
+                case AbstractType.ANY_INT:
+                    match b.type:
+                        case AbstractType.ANY_INT:
+                            return None
+                        
+                        case _:
+                            raise Exception(b.type)
+
+                case _:
+                    raise Exception(self.type)
+        
+        else:
+            raise Exception(b)
 
 
 class ProgramCounter:
@@ -211,21 +228,43 @@ class AbstractInterpreter:
                                 raise Exception
 
             case "if":
-                if_condition: str = operation_json["operation"]
+                if_condition: str = operation_json["condition"]
                 if_target: int = operation_json["target"]
                 operand_b = top_stack.operate_stack.pop()
                 operand_a = top_stack.operate_stack.pop()
                 match if_condition:
                     case "gt":
-                        # TBD
-                        raise Exception(opr_type)
+                        result = operand_a > operand_b
+                        self.log_operation(
+                            f"{opr_type}, condition: {if_condition}, target: {if_target}"
+                        )
+                        match result:
+                            case True:
+                                top_stack.program_counter.index = if_target - 1
+
+                            case None:
+                                new_state = deepcopy(state)
+                                new_state.id = self.id_generator.get_new_id()
+                                self.log_operation(f"------create new state, id: {new_state.id}------")
+                                self.log_state(new_state)
+                                next_state_list.append(new_state)
+
+                                top_stack.program_counter.index = if_target - 1
+                            
+                            case _:
+                                raise Exception(result)
+
+
 
             case _:
                 raise Exception(opr_type)
 
         top_stack.program_counter.index += 1  # step 1
+        for new_state in next_state_list:
+            new_state.stack[-1].program_counter.index += 1
         if len(state.stack) > 0:
             next_state_list.append(state)
+            self.log_state(state)
         else:
             self.log_done(state)
 
@@ -263,14 +302,14 @@ class AbstractInterpreter:
         print("---final state---  id:", state.id)
         print("stack size:", len(state.stack))
         print("return value:", str(state.return_value))
+        print()
 
     def run(self) -> None:
         self.log_start()
-        
+
         while len(self.state_list) > 0:
             next_state_list: List[AbstractState] = []
             for state in self.state_list:
-                self.log_state(state)
                 next_state_list += self.step(state)
             self.state_list = next_state_list
 
@@ -278,13 +317,13 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "dtu/compute/exec/Simple", "add"
+        "course-02242-examples", "dtu/compute/exec/Simple", "min"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            1,
-            3
+            AbstractVariable(AbstractType.ANY_INT),
+            AbstractVariable(AbstractType.ANY_INT),
         ],
     )
     java_interpreter.run()
