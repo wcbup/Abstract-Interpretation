@@ -33,7 +33,7 @@ class JavaClass:
 
 class AbstractType(Enum):
     VOID = "Void"
-    ANY = "Any"  # any value
+    ANY_INT = "Any Int"  # any int value
 
 
 class AbstractVariable:
@@ -209,5 +209,5 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples", "dtu/compute/exec/Simple", "identity"
     )
-    java_interpreter = AbstractInterpreter(java_program, [AbstractVariable(AbstractType.ANY)])
+    java_interpreter = AbstractInterpreter(java_program, [AbstractVariable(AbstractType.ANY_INT)])
     java_interpreter.run()
