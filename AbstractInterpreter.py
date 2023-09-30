@@ -58,7 +58,7 @@ class AbstractMethodStack:
         self, parameters: Dict[int, AbstractVariable], java_method: JavaMethod
     ) -> None:
         self.local_variables = parameters
-        self.operate_stack: List[AbstractVariable] = []
+        self.operate_stack: List[Union[AbstractVariable, int]] = []
         self.program_counter = ProgramCounter(java_method)
 
 
@@ -106,13 +106,13 @@ class AbstractInterpreter:
 
         match opr_type:
             case "return":
-                return_type: None = operation_json["type"]
+                return_type: None | str = operation_json["type"]
                 match return_type:
                     case None:
                         return_value = AbstractVariable(AbstractType.VOID)
-
+                    
                     case _:
-                        raise Exception
+                        raise Exception(return_type)
 
                 if len(self.stack) > 1 and return_value.type != AbstractType.VOID:
                     self.stack[-2].operate_stack.append(return_value)
@@ -123,6 +123,20 @@ class AbstractInterpreter:
 
                 # pop and return
                 self.stack.pop()
+            
+            case "push":
+                value_json: Dict[str, Union[int, str]] = operation_json["value"]
+                value_type = value_json["type"]
+                match value_type:
+                    case "integer":
+                        value_value: int = value_json["value"]
+                        top_stack.operate_stack.append(value_value)
+                        self.log_operation(f"{opr_type} {value_value}")
+                    
+                    case _:
+                        raise Exception(value_type)
+            case _:
+                raise Exception(opr_type)
 
         top_stack.program_counter.index += 1  # step 1
         if len(self.stack) > 0:
@@ -174,7 +188,7 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "dtu/compute/exec/Simple", "noop"
+        "course-02242-examples", "dtu/compute/exec/Simple", "zero"
     )
     java_interpreter = AbstractInterpreter(java_program, [])
     java_interpreter.run()
