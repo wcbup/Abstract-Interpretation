@@ -111,6 +111,9 @@ class AbstractInterpreter:
                     case None:
                         return_value = AbstractVariable(AbstractType.VOID)
                     
+                    case "int":
+                        return_value = top_stack.operate_stack.pop()
+                    
                     case _:
                         raise Exception(return_type)
 
