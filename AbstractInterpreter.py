@@ -43,18 +43,26 @@ class AbstractVariable:
     def __str__(self) -> str:
         return f"{str(self.type)}"
 
-    def __add__(self, b: AbstractVariable) -> AbstractVariable:
-        match self.type:
-            case AbstractType.ANY_INT:
-                match b.type:
-                    case AbstractType.ANY_INT:
-                        return AbstractVariable(AbstractType.ANY_INT)
+    def __add__(self, b: AbstractVariable | int) -> AbstractVariable:
+        if isinstance(b, AbstractVariable):
+            match self.type:
+                case AbstractType.ANY_INT:
+                    match b.type:
+                        case AbstractType.ANY_INT:
+                            return AbstractVariable(AbstractType.ANY_INT)
 
-                    case _:
-                        raise Exception(b.type)
+                        case _:
+                            raise Exception(b.type)
 
-            case _:
-                raise Exception(self.type)
+                case _:
+                    raise Exception(self.type)
+        elif isinstance(b, int):
+            return AbstractVariable(AbstractType.ANY_INT)
+        else:
+            raise Exception(b)
+    
+    def __radd(self, a: AbstractVariable | int) -> AbstractVariable:
+        return self.__add__(a)
 
 
 class ProgramCounter:
@@ -170,8 +178,8 @@ class AbstractInterpreter:
             case "binary":
                 binary_operant = operation_json["operant"]
                 binary_type = operation_json["type"]
-                operand_a = top_stack.operate_stack.pop()
                 operand_b = top_stack.operate_stack.pop()
+                operand_a = top_stack.operate_stack.pop()
 
                 match binary_operant:
                     case "add":
@@ -243,7 +251,7 @@ if __name__ == "__main__":
         java_program,
         [
             AbstractVariable(AbstractType.ANY_INT),
-            AbstractVariable(AbstractType.ANY_INT),
+            1,
         ],
     )
     java_interpreter.run()
