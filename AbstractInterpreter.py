@@ -60,7 +60,7 @@ class AbstractVariable:
             return AbstractVariable(AbstractType.ANY_INT)
         else:
             raise Exception(b)
-    
+
     def __radd(self, a: AbstractVariable | int) -> AbstractVariable:
         return self.__add__(a)
 
@@ -99,12 +99,30 @@ class JavaProgram:
         ]
 
 
+class IdGenerator:
+    def __init__(self) -> None:
+        self.id = 0
+
+    def get_new_id(self) -> int:
+        self.id += 1
+        return self.id
+
+
+class AbstractState:
+    def __init__(self, id: int, stack: List[AbstractMethodStack]) -> None:
+        self.id = id
+        self.stack = stack
+        self.return_value: int | AbstractVariable = AbstractVariable(AbstractType.VOID)
+
+
 class AbstractInterpreter:
     def __init__(
         self, java_program: JavaProgram, init_peremeters: List[AbstractVariable]
     ) -> None:
         self.java_program = java_program
-        self.stack: List[AbstractMethodStack] = []
+        self.state_list: List[AbstractState] = []
+        init_stack: List[AbstractMethodStack] = []
+        self.id_generator = IdGenerator()
 
         init_local_vars: Dict[int, AbstractVariable] = {}
         for i in range(len(init_peremeters)):
@@ -112,18 +130,18 @@ class AbstractInterpreter:
         init_method_stack = AbstractMethodStack(
             init_local_vars, self.java_program.init_method
         )
-        self.stack.append(init_method_stack)
+        init_stack.append(init_method_stack)
+        init_state = AbstractState(self.id_generator.get_new_id(), init_stack)
+        self.state_list.append(init_state)
 
-        self.return_value = AbstractVariable(AbstractType.VOID)
-
-    def step(self) -> bool:
+    def step(self, state: AbstractState) -> List[AbstractState]:
         """
-        return true indicates operation continues
-        return false indicates operation ends
+        return the next state list
         """
-        top_stack = self.stack[-1]
+        top_stack = state.stack[-1]
         operation_json = top_stack.program_counter.get_current_operation()
         opr_type: str = operation_json["opr"]
+        next_state_list: List[AbstractState] = []
 
         match opr_type:
             case "return":
@@ -138,15 +156,15 @@ class AbstractInterpreter:
                     case _:
                         raise Exception(return_type)
 
-                if len(self.stack) > 1 and return_value.type != AbstractType.VOID:
-                    self.stack[-2].operate_stack.append(return_value)
+                if len(state.stack) > 1 and return_value.type != AbstractType.VOID:
+                    state.stack[-2].operate_stack.append(return_value)
                 else:
-                    self.return_value = return_value
+                    state.return_value = return_value
 
                 self.log_operation(f"{opr_type} {return_type}")
 
                 # pop and return
-                self.stack.pop()
+                state.stack.pop()
 
             case "push":
                 value_json: Dict[str, Union[int, str]] = operation_json["value"]
@@ -188,18 +206,30 @@ class AbstractInterpreter:
                                 result = operand_a + operand_b
                                 top_stack.operate_stack.append(result)
                                 self.log_operation(f"{binary_operant} {binary_type}")
-                            
+
                             case _:
                                 raise Exception
+
+            case "if":
+                if_condition: str = operation_json["operation"]
+                if_target: int = operation_json["target"]
+                operand_b = top_stack.operate_stack.pop()
+                operand_a = top_stack.operate_stack.pop()
+                match if_condition:
+                    case "gt":
+                        # TBD
+                        raise Exception(opr_type)
 
             case _:
                 raise Exception(opr_type)
 
         top_stack.program_counter.index += 1  # step 1
-        if len(self.stack) > 0:
-            return True
+        if len(state.stack) > 0:
+            next_state_list.append(state)
         else:
-            return False
+            self.log_done(state)
+
+        return next_state_list
 
     def log_operation(self, log_str: str) -> None:
         print("Operation:", log_str)
@@ -210,11 +240,11 @@ class AbstractInterpreter:
         print("init method:", self.java_program.init_method_name)
         print()
 
-    def log_state(self) -> None:
-        print("---state---")
-        print("stack size:", len(self.stack))
+    def log_state(self, state: AbstractState) -> None:
+        print("---state---  id:", state.id)
+        print("stack size:", len(state.stack))
         print("top stack")
-        top_stack = self.stack[-1]
+        top_stack = state.stack[-1]
         var_str = ""
         for i in top_stack.local_variables.keys():
             var_str += f"{i}: {top_stack.local_variables[i]}"
@@ -229,17 +259,20 @@ class AbstractInterpreter:
         print(" ", "program counter index:", top_stack.program_counter.index)
         print()
 
-    def log_done(self) -> None:
-        print("---final state---")
-        print("stack size:", len(self.stack))
-        print("return value:", str(self.return_value))
+    def log_done(self, state: AbstractState) -> None:
+        print("---final state---  id:", state.id)
+        print("stack size:", len(state.stack))
+        print("return value:", str(state.return_value))
 
     def run(self) -> None:
         self.log_start()
-        self.log_state()
-        while self.step():
-            self.log_state()
-        self.log_done()
+        
+        while len(self.state_list) > 0:
+            next_state_list: List[AbstractState] = []
+            for state in self.state_list:
+                self.log_state(state)
+                next_state_list += self.step(state)
+            self.state_list = next_state_list
 
 
 # test code
@@ -250,8 +283,8 @@ if __name__ == "__main__":
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(AbstractType.ANY_INT),
             1,
+            3
         ],
     )
     java_interpreter.run()
