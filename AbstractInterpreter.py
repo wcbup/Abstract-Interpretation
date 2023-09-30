@@ -43,6 +43,19 @@ class AbstractVariable:
     def __str__(self) -> str:
         return f"{str(self.type)}"
 
+    def __add__(self, b: AbstractVariable) -> AbstractVariable:
+        match self.type:
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
+
+                    case _:
+                        raise Exception(b.type)
+
+            case _:
+                raise Exception(self.type)
+
 
 class ProgramCounter:
     def __init__(self, java_method: JavaMethod) -> None:
@@ -110,10 +123,10 @@ class AbstractInterpreter:
                 match return_type:
                     case None:
                         return_value = AbstractVariable(AbstractType.VOID)
-                    
+
                     case "int":
                         return_value = top_stack.operate_stack.pop()
-                    
+
                     case _:
                         raise Exception(return_type)
 
@@ -126,7 +139,7 @@ class AbstractInterpreter:
 
                 # pop and return
                 self.stack.pop()
-            
+
             case "push":
                 value_json: Dict[str, Union[int, str]] = operation_json["value"]
                 value_type = value_json["type"]
@@ -135,10 +148,10 @@ class AbstractInterpreter:
                         value_value: int = value_json["value"]
                         top_stack.operate_stack.append(value_value)
                         self.log_operation(f"{opr_type} {value_value}")
-                    
+
                     case _:
                         raise Exception(value_type)
-            
+
             case "load":
                 load_type: str = operation_json["type"]
                 match load_type:
@@ -150,9 +163,26 @@ class AbstractInterpreter:
                         self.log_operation(
                             f"{opr_type}, type: {load_type}, index: {load_index}"
                         )
-                    
+
                     case _:
                         raise Exception(load_type)
+
+            case "binary":
+                binary_operant = operation_json["operant"]
+                binary_type = operation_json["type"]
+                operand_a = top_stack.operate_stack.pop()
+                operand_b = top_stack.operate_stack.pop()
+
+                match binary_operant:
+                    case "add":
+                        match binary_type:
+                            case "int":
+                                result = operand_a + operand_b
+                                top_stack.operate_stack.append(result)
+                                self.log_operation(f"{binary_operant} {binary_type}")
+                            
+                            case _:
+                                raise Exception
 
             case _:
                 raise Exception(opr_type)
@@ -207,7 +237,13 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "dtu/compute/exec/Simple", "identity"
+        "course-02242-examples", "dtu/compute/exec/Simple", "add"
     )
-    java_interpreter = AbstractInterpreter(java_program, [AbstractVariable(AbstractType.ANY_INT)])
+    java_interpreter = AbstractInterpreter(
+        java_program,
+        [
+            AbstractVariable(AbstractType.ANY_INT),
+            AbstractVariable(AbstractType.ANY_INT),
+        ],
+    )
     java_interpreter.run()
