@@ -247,7 +247,7 @@ class AbstractInterpreter:
 
                     case _:
                         raise Exception(store_type)
-            
+
             case "get":
                 field_json = operation_json["field"]
                 field_name: str = field_json["name"]
@@ -257,6 +257,7 @@ class AbstractInterpreter:
                 else:
                     # TBD
                     raise Exception
+                self.log_operation(f"{opr_type}, {field_name}")
 
             case "binary":
                 binary_operant = operation_json["operant"]
@@ -311,15 +312,31 @@ class AbstractInterpreter:
                 if_target: int = operation_json["target"]
                 operand_b = top_stack.operate_stack.pop()
                 operand_a = top_stack.operate_stack.pop()
+                self.log_operation(
+                    f"{opr_type}, condition: {if_condition}, target: {if_target}"
+                )
                 match if_condition:
                     case "gt":
-                        result = operand_a > operand_b
-                        self.log_operation(
-                            f"{opr_type}, condition: {if_condition}, target: {if_target}"
-                        )
+                        if isinstance(operand_a, int):
+                            if isinstance(operand_b, int):
+                                result = operand_a > operand_b
+
+                            elif isinstance(operand_b, AbstractVariable):
+                                match operand_b.type:
+                                    case AbstractType.ANY_INT:
+                                        result = None
+
+                                    case _:
+                                        raise Exception(operand_b.type)
+
+                            else:
+                                raise Exception(operand_b)
+                        else:
+                            result = operand_a > operand_b
+
                         match result:
                             case False:
-                                None # do nothing
+                                None  # do nothing
 
                             case True:
                                 top_stack.program_counter.index = if_target - 1
@@ -337,14 +354,17 @@ class AbstractInterpreter:
 
                             case _:
                                 raise Exception(result)
-            
+                    
+                    case _:
+                        raise Exception(if_condition)
+
             case "ifz":
                 operand = top_stack.operate_stack.pop()
                 if operand == True:
                     operand = 1
                 elif operand == False:
                     operand = 0
-                
+
                 ifz_condition = operation_json["condition"]
                 ifz_target = operation_json["target"]
                 match ifz_condition:
@@ -352,14 +372,14 @@ class AbstractInterpreter:
                         result = operand != 0
                         match result:
                             case False:
-                                None # do nothing
+                                None  # do nothing
 
                             case True:
                                 top_stack.program_counter.index = if_target - 1
-                            
+
                             case _:
                                 raise Exception(result)
-                    
+
                     case _:
                         raise Exception(ifz_condition)
                 self.log_operation(
