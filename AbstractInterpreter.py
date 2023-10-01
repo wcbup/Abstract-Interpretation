@@ -71,7 +71,7 @@ class AbstractVariable:
                 match b.type:
                     case AbstractType.INT:
                         return AbstractVariable(self.value + b.value)
-                    
+
                     case AbstractType.ANY_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
 
@@ -116,8 +116,11 @@ class AbstractVariable:
                     case AbstractType.INT:
                         return AbstractVariable(int(self.value / b.value))
 
+                    case AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
+
                     case _:
-                        raise Exception
+                        raise Exception(b.type)
 
             case AbstractType.ANY_INT:
                 match b.type:
@@ -461,7 +464,7 @@ class AbstractInterpreter:
                     case "div":
                         match binary_type:
                             case "int":
-                                if operand_b.type == AbstractType.ANY_INT or (
+                                if (
                                     operand_b.type == AbstractType.INT
                                     and operand_b.value == 0
                                 ):
@@ -472,6 +475,16 @@ class AbstractInterpreter:
                                     )
                                     self.yes_exception_set.add(exception_type)
                                     state.stack.clear()  # empty the stack, simply return
+                                    self.log_operation("exiting")
+                                elif operand_b.type == AbstractType.ANY_INT:
+                                    # record the exception
+                                    exception_type = ExceptionType.ARITHMETIC_EXCEPTION
+                                    self.log_operation(
+                                        f"---find one exception---\n{exception_type}"
+                                    )
+                                    self.yes_exception_set.add(exception_type)
+                                    result = operand_a / operand_b
+                                    top_stack.operate_stack.append(result)
                                 else:
                                     result = operand_a / operand_b
                                     top_stack.operate_stack.append(result)
@@ -579,7 +592,7 @@ class AbstractInterpreter:
 
                     case "eq":
                         result = operand == AbstractVariable(0)
-                    
+
                     case "lt":
                         result = operand < AbstractVariable(0)
 
@@ -678,13 +691,13 @@ class AbstractInterpreter:
 
         index = 0
         while len(self.state_list) > 0 and index < step_limit:
-            index +=1
+            index += 1
 
             next_state_list: List[AbstractState] = []
             for state in self.state_list:
                 next_state_list += self.step(state)
             self.state_list = next_state_list
-        
+
         if index == step_limit:
             print("Reach the step limit, exit!")
 
@@ -696,12 +709,12 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "speedVsPrecision",
+        "alwaysThrows2",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(1),
+            AbstractVariable(AbstractType.ANY_INT),
             AbstractVariable(4),
         ],
     )
