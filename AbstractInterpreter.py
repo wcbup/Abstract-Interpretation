@@ -92,6 +92,63 @@ class AbstractVariable:
 
                     case _:
                         raise Exception(b.type)
+            
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.INT | AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
+                    
+                    case _:
+                        raise Exception(b.type)
+
+            case _:
+                raise Exception(self.type)
+
+    def __truediv__(self, b: AbstractVariable) -> AbstractVariable:
+        if not isinstance(b, AbstractVariable):
+            raise Exception
+        match self.type:
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return AbstractVariable(int(self.value / b.value))
+
+                    case _:
+                        raise Exception
+
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.INT | AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
+
+                    case _:
+                        raise Exception
+
+            case _:
+                raise Exception
+    
+    def __ge__(self, b: AbstractVariable) -> bool | None:
+        if not isinstance(b, AbstractVariable):
+            raise Exception
+        match self.type:
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return self.value >= b.value
+
+                    case AbstractType.ANY_INT:
+                        return None
+
+                    case _:
+                        raise Exception(b.type)
+
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.INT | AbstractType.ANY_INT:
+                        return None
+
+                    case _:
+                        raise Exception
 
             case _:
                 raise Exception
@@ -138,29 +195,6 @@ class AbstractVariable:
                 match b.type:
                     case AbstractType.INT | AbstractType.ANY_INT:
                         return None
-
-                    case _:
-                        raise Exception
-
-            case _:
-                raise Exception
-
-    def __truediv__(self, b: AbstractVariable) -> AbstractVariable:
-        if not isinstance(b, AbstractVariable):
-            raise Exception
-        match self.type:
-            case AbstractType.INT:
-                match b.type:
-                    case AbstractType.INT:
-                        return AbstractVariable(int(self.value / b.value))
-
-                    case _:
-                        raise Exception
-
-            case AbstractType.ANY_INT:
-                match b.type:
-                    case AbstractType.INT | AbstractType.ANY_INT:
-                        return AbstractVariable(AbstractType.ANY_INT)
 
                     case _:
                         raise Exception
@@ -441,6 +475,9 @@ class AbstractInterpreter:
 
                     case "le":
                         result = operand_a <= operand_b
+                    
+                    case "ge":
+                        result = operand_a >= operand_b
 
                     case _:
                         raise Exception(if_condition)
@@ -593,12 +630,12 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "itDependsOnLattice1",
+        "itDependsOnLattice3",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(2),
+            AbstractVariable(AbstractType.ANY_INT),
             AbstractVariable(AbstractType.ANY_INT),
         ],
     )
