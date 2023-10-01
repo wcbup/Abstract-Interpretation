@@ -85,6 +85,23 @@ class AbstractVariable:
         else:
             raise Exception(b)
 
+    def __truediv__(self, b: AbstractVariable) -> AbstractVariable:
+        if isinstance(b, AbstractVariable):
+            match self.type:
+                case AbstractType.ANY_INT:
+                    match b.type:
+                        case AbstractType.ANY_INT:
+                            return AbstractVariable(AbstractType.ANY_INT)
+
+                        case _:
+                            raise Exception(b.type)
+
+                case _:
+                    raise Exception(self.type)
+
+        else:
+            raise Exception(b)
+
 
 class ProgramCounter:
     def __init__(self, java_method: JavaMethod) -> None:
@@ -97,7 +114,9 @@ class ProgramCounter:
 
 class AbstractMethodStack:
     def __init__(
-        self, parameters: Dict[int, Union[AbstractVariable, int]], java_method: JavaMethod
+        self,
+        parameters: Dict[int, Union[AbstractVariable, int]],
+        java_method: JavaMethod,
     ) -> None:
         self.local_variables = parameters
         self.operate_stack: List[Union[AbstractVariable, int]] = []
@@ -216,7 +235,7 @@ class AbstractInterpreter:
 
                     case _:
                         raise Exception(load_type)
-            
+
             case "store":
                 store_type = operation_json["type"]
                 store_index: int = operation_json["index"]
@@ -225,7 +244,7 @@ class AbstractInterpreter:
                     case "int":
                         top_stack.local_variables[store_index] = store_value
                         self.log_operation(f"{opr_type}, type: {store_type}")
-                    
+
                     case _:
                         raise Exception(store_type)
 
@@ -257,7 +276,10 @@ class AbstractInterpreter:
                     case "div":
                         match binary_type:
                             case "int":
-                                if operand_b == 0:
+                                if operand_b == 0 or (
+                                    isinstance(operand_b, AbstractVariable)
+                                    and operand_b.type == AbstractType.ANY_INT
+                                ):
                                     # record the exception
                                     exception_type = ExceptionType.ARITHMETIC_EXCEPTION
                                     self.log_operation(
@@ -350,7 +372,7 @@ class AbstractInterpreter:
         print("stack size:", len(state.stack))
         print("return value:", str(state.return_value))
         print()
-    
+
     def log_exception(self) -> None:
         print("---exception---")
         print("Yes Exception:")
@@ -366,7 +388,7 @@ class AbstractInterpreter:
             for state in self.state_list:
                 next_state_list += self.step(state)
             self.state_list = next_state_list
-        
+
         self.log_exception()
 
 
