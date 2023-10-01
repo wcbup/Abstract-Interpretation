@@ -119,7 +119,7 @@ class AbstractMethodStack:
         java_method: JavaMethod,
     ) -> None:
         self.local_variables = parameters
-        self.operate_stack: List[Union[AbstractVariable, int]] = []
+        self.operate_stack: List[Union[AbstractVariable, int, bool]] = []
         self.program_counter = ProgramCounter(java_method)
 
 
@@ -247,6 +247,16 @@ class AbstractInterpreter:
 
                     case _:
                         raise Exception(store_type)
+            
+            case "get":
+                field_json = operation_json["field"]
+                field_name: str = field_json["name"]
+                # hard code `$assertionsDisabled` to False
+                if field_name == "$assertionsDisabled":
+                    top_stack.operate_stack.append(False)
+                else:
+                    # TBD
+                    raise Exception
 
             case "binary":
                 binary_operant = operation_json["operant"]
@@ -395,7 +405,7 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows3"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows4"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
