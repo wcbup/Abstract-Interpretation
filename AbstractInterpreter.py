@@ -67,6 +67,14 @@ class AbstractVariable:
                     case _:
                         raise Exception(b.type)
 
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return AbstractVariable(self.value + b.value)
+
+                    case _:
+                        raise Exception(b.type)
+
             case _:
                 raise Exception(self.type)
 
@@ -403,6 +411,17 @@ class AbstractInterpreter:
 
                 self.log_operation(f"{opr_type}, {negate_type}")
 
+            case "incr":
+                incr_index: int = operation_json["index"]
+                incr_amount: int = operation_json["amount"]
+                incr_val = top_stack.local_variables[incr_index]
+                top_stack.local_variables[incr_index] = incr_val + AbstractVariable(
+                    incr_amount
+                )
+                self.log_operation(
+                    f"{opr_type}, index: {incr_index}, amount: {incr_amount}"
+                )
+
             case "goto":
                 goto_target = operation_json["target"]
                 top_stack.program_counter.index = goto_target - 1
@@ -572,13 +591,15 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows5"
+        "course-02242-examples",
+        "eu/bogoe/dtu/exceptional/Arithmetics",
+        "itDependsOnLattice1",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
             AbstractVariable(2),
-            AbstractVariable(3),
+            AbstractVariable(AbstractType.ANY_INT),
         ],
     )
     java_interpreter.run()
