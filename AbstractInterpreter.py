@@ -245,6 +245,15 @@ class AbstractInterpreter:
                             case _:
                                 raise Exception(binary_type)
 
+                    case "sub":
+                        match binary_type:
+                            case "int":
+                                result = operand_a - operand_b
+                                top_stack.operate_stack.append(result)
+
+                            case _:
+                                raise Exception(binary_type)
+
                     case "div":
                         match binary_type:
                             case "int":
@@ -252,7 +261,7 @@ class AbstractInterpreter:
                                     # record the exception
                                     exception_type = ExceptionType.ARITHMETIC_EXCEPTION
                                     self.log_operation(
-                                        f"---find one exception: {exception_type}---\n"
+                                        f"---find one exception---\n{exception_type}"
                                     )
                                     self.yes_exception_set.add(exception_type)
                                     state.stack.clear()  # empty the stack, simply return
