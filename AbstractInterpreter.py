@@ -318,6 +318,9 @@ class AbstractInterpreter:
                             f"{opr_type}, condition: {if_condition}, target: {if_target}"
                         )
                         match result:
+                            case False:
+                                None # do nothing
+
                             case True:
                                 top_stack.program_counter.index = if_target - 1
 
@@ -334,6 +337,34 @@ class AbstractInterpreter:
 
                             case _:
                                 raise Exception(result)
+            
+            case "ifz":
+                operand = top_stack.operate_stack.pop()
+                if operand == True:
+                    operand = 1
+                elif operand == False:
+                    operand = 0
+                
+                ifz_condition = operation_json["condition"]
+                ifz_target = operation_json["target"]
+                match ifz_condition:
+                    case "ne":
+                        result = operand != 0
+                        match result:
+                            case False:
+                                None # do nothing
+
+                            case True:
+                                top_stack.program_counter.index = if_target - 1
+                            
+                            case _:
+                                raise Exception(result)
+                    
+                    case _:
+                        raise Exception(ifz_condition)
+                self.log_operation(
+                    f"{opr_type}, condition: {ifz_condition}, target: {ifz_target}"
+                )
 
             case _:
                 raise Exception(opr_type)
