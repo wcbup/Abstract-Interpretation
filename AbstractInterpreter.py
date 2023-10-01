@@ -61,7 +61,7 @@ class AbstractVariable:
         match self.type:
             case AbstractType.ANY_INT:
                 match b.type:
-                    case AbstractType.ANY_INT:
+                    case AbstractType.ANY_INT | AbstractType.INT:
                         return AbstractVariable(AbstractType.ANY_INT)
 
                     case _:
@@ -92,12 +92,12 @@ class AbstractVariable:
 
                     case _:
                         raise Exception(b.type)
-            
+
             case AbstractType.ANY_INT:
                 match b.type:
                     case AbstractType.INT | AbstractType.ANY_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
-                    
+
                     case _:
                         raise Exception(b.type)
 
@@ -126,7 +126,7 @@ class AbstractVariable:
 
             case _:
                 raise Exception
-    
+
     def __ge__(self, b: AbstractVariable) -> bool | None:
         if not isinstance(b, AbstractVariable):
             raise Exception
@@ -211,6 +211,30 @@ class AbstractVariable:
                 match b.type:
                     case AbstractType.INT:
                         return self.value != b.value
+
+                    case _:
+                        raise Exception
+
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.INT | AbstractType.ANY_INT:
+                        return None
+
+                    case _:
+                        raise Exception
+
+            case _:
+                raise Exception
+
+    def __eq__(self, b: AbstractVariable) -> bool | None:
+        if not isinstance(b, AbstractVariable):
+            raise Exception
+
+        match self.type:
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return self.value == b.value
 
                     case _:
                         raise Exception
@@ -475,7 +499,7 @@ class AbstractInterpreter:
 
                     case "le":
                         result = operand_a <= operand_b
-                    
+
                     case "ge":
                         result = operand_a >= operand_b
 
@@ -505,10 +529,11 @@ class AbstractInterpreter:
 
             case "ifz":
                 operand = top_stack.operate_stack.pop()
-                if operand == True:
-                    operand = AbstractVariable(1)
-                elif operand == False:
-                    operand = AbstractVariable(0)
+                if isinstance(operand, bool):
+                    if operand == True:
+                        operand = AbstractVariable(1)
+                    elif operand == False:
+                        operand = AbstractVariable(0)
 
                 ifz_condition = operation_json["condition"]
                 ifz_target = operation_json["target"]
@@ -522,6 +547,12 @@ class AbstractInterpreter:
 
                     case "le":
                         result = operand <= AbstractVariable(0)
+
+                    case "gt":
+                        result = operand > AbstractVariable(0)
+
+                    case "eq":
+                        result = operand == AbstractVariable(0)
 
                     case _:
                         raise Exception(ifz_condition)
@@ -630,12 +661,12 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "itDependsOnLattice3",
+        "neverThrows3",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(AbstractType.ANY_INT),
+            AbstractVariable(2),
             AbstractVariable(AbstractType.ANY_INT),
         ],
     )
