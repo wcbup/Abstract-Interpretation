@@ -85,7 +85,25 @@ class AbstractVariable:
         raise Exception
 
     def __truediv__(self, b: AbstractVariable) -> AbstractVariable:
-        raise Exception
+        match self.type:
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return AbstractVariable(int(self.value / self.value))
+                    
+                    case _:
+                        raise Exception
+            
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.INT | AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
+                    
+                    case _:
+                        raise Exception
+            
+            case _:
+                raise Exception
 
 
 class ProgramCounter:
@@ -481,10 +499,13 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows2"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows3"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
-        [AbstractVariable(2)],
+        [
+            AbstractVariable(AbstractType.ANY_INT),
+            AbstractVariable(1),
+        ],
     )
     java_interpreter.run()
