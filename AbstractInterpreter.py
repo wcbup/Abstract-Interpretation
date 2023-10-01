@@ -32,6 +32,7 @@ class JavaClass:
 
 
 class AbstractType(Enum):
+    INT = "Int"
     VOID = "Void"
     ANY_INT = "Any Int"  # any int value
 
@@ -41,11 +42,18 @@ class ExceptionType(Enum):
 
 
 class AbstractVariable:
-    def __init__(self, variable_type: AbstractType) -> None:
-        self.type = variable_type
+    def __init__(self, variable: AbstractType | int) -> None:
+        if isinstance(variable, AbstractType):
+            self.type = variable
+            self.value = None
+        elif isinstance(variable, int):
+            self.value = variable
+            self.type = AbstractType.INT
+        else:
+            raise Exception
 
     def __str__(self) -> str:
-        return f"{str(self.type)}"
+        return f"{str(self.type)}: {str(self.value)}"
 
     def __add__(self, b: AbstractVariable | int) -> AbstractVariable:
         if isinstance(b, AbstractVariable):
@@ -215,7 +223,7 @@ class AbstractInterpreter:
                 match value_type:
                     case "integer":
                         value_value: int = value_json["value"]
-                        top_stack.operate_stack.append(value_value)
+                        top_stack.operate_stack.append(AbstractVariable(value_value))
                         self.log_operation(f"{opr_type} {value_value}")
 
                     case _:
@@ -287,9 +295,9 @@ class AbstractInterpreter:
                     case "div":
                         match binary_type:
                             case "int":
-                                if operand_b == 0 or (
-                                    isinstance(operand_b, AbstractVariable)
-                                    and operand_b.type == AbstractType.ANY_INT
+                                if operand_b.type == AbstractType.ANY_INT or (
+                                    operand_b.type == AbstractType.INT
+                                    and operand_b.value == 0
                                 ):
                                     # record the exception
                                     exception_type = ExceptionType.ARITHMETIC_EXCEPTION
@@ -494,13 +502,10 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows4"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows1"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
-        [
-            1,
-            AbstractVariable(AbstractType.ANY_INT),
-        ],
+        [],
     )
     java_interpreter.run()
