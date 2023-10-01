@@ -1,6 +1,6 @@
 from __future__ import annotations
 from load_class_files import load_class_files
-from typing import List, Dict, Union, Tuple
+from typing import List, Dict, Union, Tuple, Set
 from enum import Enum
 from copy import deepcopy
 import json
@@ -36,6 +36,10 @@ class AbstractType(Enum):
     ANY_INT = "Any Int"  # any int value
 
 
+class ExceptionType(Enum):
+    ARITHMETIC_EXCEPTION = "Arithmetic Exception"
+
+
 class AbstractVariable:
     def __init__(self, variable_type: AbstractType) -> None:
         self.type = variable_type
@@ -63,7 +67,7 @@ class AbstractVariable:
 
     def __radd__(self, a: AbstractVariable | int) -> AbstractVariable:
         return self.__add__(a)
-    
+
     def __gt__(self, b: AbstractVariable) -> bool | None:
         if isinstance(b, AbstractVariable):
             match self.type:
@@ -71,13 +75,13 @@ class AbstractVariable:
                     match b.type:
                         case AbstractType.ANY_INT:
                             return None
-                        
+
                         case _:
                             raise Exception(b.type)
 
                 case _:
                     raise Exception(self.type)
-        
+
         else:
             raise Exception(b)
 
@@ -151,6 +155,9 @@ class AbstractInterpreter:
         init_state = AbstractState(self.id_generator.get_new_id(), init_stack)
         self.state_list.append(init_state)
 
+        self.yes_exception_set: Set[ExceptionType] = set()
+        self.maybe_exception_set: Set[ExceptionType] = set()
+
     def step(self, state: AbstractState) -> List[AbstractState]:
         """
         return the next state list
@@ -222,10 +229,29 @@ class AbstractInterpreter:
                             case "int":
                                 result = operand_a + operand_b
                                 top_stack.operate_stack.append(result)
-                                self.log_operation(f"{binary_operant} {binary_type}")
 
                             case _:
-                                raise Exception
+                                raise Exception(binary_type)
+
+                    case "div":
+                        match binary_type:
+                            case "int":
+                                if operand_b == 0:
+                                    # record the exception
+                                    exception_type = ExceptionType.ARITHMETIC_EXCEPTION
+                                    self.log_operation(
+                                        f"---find one exception: {exception_type}---\n"
+                                    )
+                                    self.yes_exception_set.add(exception_type)
+                                    state.stack.clear()  # empty the stack, simply return
+                                else:
+                                    result = operand_a / operand_b
+                                    top_stack.operate_stack.append(result)
+
+                    case _:
+                        raise Exception(binary_operant)
+
+                self.log_operation(f"{binary_operant} {binary_type}")
 
             case "if":
                 if_condition: str = operation_json["condition"]
@@ -245,16 +271,16 @@ class AbstractInterpreter:
                             case None:
                                 new_state = deepcopy(state)
                                 new_state.id = self.id_generator.get_new_id()
-                                self.log_operation(f"------create new state, id: {new_state.id}------")
+                                self.log_operation(
+                                    f"------create new state, id: {new_state.id}------"
+                                )
                                 self.log_state(new_state)
                                 next_state_list.append(new_state)
 
                                 top_stack.program_counter.index = if_target - 1
-                            
+
                             case _:
                                 raise Exception(result)
-
-
 
             case _:
                 raise Exception(opr_type)
@@ -303,6 +329,13 @@ class AbstractInterpreter:
         print("stack size:", len(state.stack))
         print("return value:", str(state.return_value))
         print()
+    
+    def log_exception(self) -> None:
+        print("---exception---")
+        print("Yes Exception:")
+        for exception_type in self.yes_exception_set:
+            print(" ", exception_type)
+        print()
 
     def run(self) -> None:
         self.log_start()
@@ -312,12 +345,14 @@ class AbstractInterpreter:
             for state in self.state_list:
                 next_state_list += self.step(state)
             self.state_list = next_state_list
+        
+        self.log_exception()
 
 
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "dtu/compute/exec/Simple", "min"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows1"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
