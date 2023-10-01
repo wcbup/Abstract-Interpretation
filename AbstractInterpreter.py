@@ -385,6 +385,18 @@ class AbstractInterpreter:
                 self.log_operation(
                     f"{opr_type}, condition: {ifz_condition}, target: {ifz_target}"
                 )
+            
+            case "new":
+                class_name = operation_json["class"]
+                # hard code new `java/lang/AssertionError`
+                if class_name == "java/lang/AssertionError":
+                    self.log_operation(f"thorw AssertionError!")
+                    # simply return
+                    state.stack.clear()
+                else:
+                    # TBD
+                    raise Exception
+
 
             case _:
                 raise Exception(opr_type)
