@@ -373,11 +373,12 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows2"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows3"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
+            AbstractVariable(AbstractType.ANY_INT),
             AbstractVariable(AbstractType.ANY_INT),
         ],
     )

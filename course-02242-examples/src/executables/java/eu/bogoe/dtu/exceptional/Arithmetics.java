@@ -17,7 +17,7 @@ public class Arithmetics {
 	}
 
 	@Case
-	public static float alwaysThrows3(float i, float j) {
+	public static int alwaysThrows3(int i, int j) {
 		return i / j;
 	}
 
