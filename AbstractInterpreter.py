@@ -71,6 +71,9 @@ class AbstractVariable:
                 match b.type:
                     case AbstractType.INT:
                         return AbstractVariable(self.value + b.value)
+                    
+                    case AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
 
                     case _:
                         raise Exception(b.type)
@@ -167,6 +170,29 @@ class AbstractVariable:
 
                     case _:
                         raise Exception(b.type)
+
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.INT | AbstractType.ANY_INT:
+                        return None
+
+                    case _:
+                        raise Exception
+
+            case _:
+                raise Exception
+
+    def __lt__(self, b: AbstractVariable) -> bool | None:
+        if not isinstance(b, AbstractVariable):
+            raise Exception
+        match self.type:
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return self.value < b.value
+
+                    case _:
+                        raise Exception
 
             case AbstractType.ANY_INT:
                 match b.type:
@@ -553,6 +579,9 @@ class AbstractInterpreter:
 
                     case "eq":
                         result = operand == AbstractVariable(0)
+                    
+                    case "lt":
+                        result = operand < AbstractVariable(0)
 
                     case _:
                         raise Exception(ifz_condition)
@@ -661,12 +690,12 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "neverThrows3",
+        "neverThrows4",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(2),
+            AbstractVariable(AbstractType.ANY_INT),
             AbstractVariable(AbstractType.ANY_INT),
         ],
     )
