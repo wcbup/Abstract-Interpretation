@@ -334,29 +334,56 @@ class AbstractInterpreter:
                         else:
                             result = operand_a > operand_b
 
-                        match result:
-                            case False:
-                                None  # do nothing
+                    case "le":
+                        if isinstance(operand_a, int):
+                            if isinstance(operand_b, int):
+                                result = operand_a <= operand_b
 
-                            case True:
-                                top_stack.program_counter.index = if_target - 1
+                            elif isinstance(operand_b, AbstractVariable):
+                                match operand_b.type:
+                                    case AbstractType.ANY_INT:
+                                        result = None
 
-                            case None:
-                                new_state = deepcopy(state)
-                                new_state.id = self.id_generator.get_new_id()
-                                self.log_operation(
-                                    f"------create new state, id: {new_state.id}------"
-                                )
-                                self.log_state(new_state)
-                                next_state_list.append(new_state)
+                                    case _:
+                                        raise Exception(operand_b.type)
 
-                                top_stack.program_counter.index = if_target - 1
+                            else:
+                                raise Exception(operand_b)
 
-                            case _:
-                                raise Exception(result)
-                    
+                        elif isinstance(operand_a, AbstractVariable):
+                            if isinstance(operand_b, int):
+                                result = None
+                            elif isinstance(operand_b, AbstractVariable):
+                                result = None
+                            else:
+                                raise Exception
+
+                        else:
+                            raise Exception
+
                     case _:
                         raise Exception(if_condition)
+
+                match result:
+                    case False:
+                        None  # do nothing
+
+                    case True:
+                        top_stack.program_counter.index = if_target - 1
+
+                    case None:
+                        new_state = deepcopy(state)
+                        new_state.id = self.id_generator.get_new_id()
+                        self.log_operation(
+                            f"------create new state, id: {new_state.id}------"
+                        )
+                        self.log_state(new_state)
+                        next_state_list.append(new_state)
+
+                        top_stack.program_counter.index = if_target - 1
+
+                    case _:
+                        raise Exception(result)
 
             case "ifz":
                 operand = top_stack.operate_stack.pop()
@@ -385,7 +412,7 @@ class AbstractInterpreter:
                 self.log_operation(
                     f"{opr_type}, condition: {ifz_condition}, target: {ifz_target}"
                 )
-            
+
             case "new":
                 class_name = operation_json["class"]
                 # hard code new `java/lang/AssertionError`
@@ -396,7 +423,6 @@ class AbstractInterpreter:
                 else:
                     # TBD
                     raise Exception
-
 
             case _:
                 raise Exception(opr_type)
@@ -473,7 +499,7 @@ if __name__ == "__main__":
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(AbstractType.ANY_INT),
+            1,
             AbstractVariable(AbstractType.ANY_INT),
         ],
     )
