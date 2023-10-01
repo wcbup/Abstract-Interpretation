@@ -97,7 +97,7 @@ class ProgramCounter:
 
 class AbstractMethodStack:
     def __init__(
-        self, parameters: Dict[int, AbstractVariable], java_method: JavaMethod
+        self, parameters: Dict[int, Union[AbstractVariable, int]], java_method: JavaMethod
     ) -> None:
         self.local_variables = parameters
         self.operate_stack: List[Union[AbstractVariable, int]] = []
@@ -216,6 +216,18 @@ class AbstractInterpreter:
 
                     case _:
                         raise Exception(load_type)
+            
+            case "store":
+                store_type = operation_json["type"]
+                store_index: int = operation_json["index"]
+                store_value = top_stack.operate_stack.pop()
+                match store_type:
+                    case "int":
+                        top_stack.local_variables[store_index] = store_value
+                        self.log_operation(f"{opr_type}, type: {store_type}")
+                    
+                    case _:
+                        raise Exception(store_type)
 
             case "binary":
                 binary_operant = operation_json["operant"]
@@ -352,12 +364,11 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows1"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows2"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(AbstractType.ANY_INT),
             AbstractVariable(AbstractType.ANY_INT),
         ],
     )
