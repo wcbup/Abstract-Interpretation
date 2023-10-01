@@ -55,60 +55,37 @@ class AbstractVariable:
     def __str__(self) -> str:
         return f"{str(self.type)}: {str(self.value)}"
 
-    def __add__(self, b: AbstractVariable | int) -> AbstractVariable:
-        if isinstance(b, AbstractVariable):
-            match self.type:
-                case AbstractType.ANY_INT:
-                    match b.type:
-                        case AbstractType.ANY_INT:
-                            return AbstractVariable(AbstractType.ANY_INT)
+    def __add__(self, b: AbstractVariable) -> AbstractVariable:
+        match self.type:
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
 
-                        case _:
-                            raise Exception(b.type)
+                    case _:
+                        raise Exception(b.type)
 
-                case _:
-                    raise Exception(self.type)
-        elif isinstance(b, int):
-            return AbstractVariable(AbstractType.ANY_INT)
-        else:
-            raise Exception(b)
+            case _:
+                raise Exception(self.type)
 
-    def __radd__(self, a: AbstractVariable | int) -> AbstractVariable:
-        return self.__add__(a)
+    def __sub__(self, b: AbstractVariable) -> AbstractVariable:
+        match self.type:
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return AbstractVariable(self.value - b.value)
+
+                    case _:
+                        raise Exception
+
+            case _:
+                raise Exception
 
     def __gt__(self, b: AbstractVariable) -> bool | None:
-        if isinstance(b, AbstractVariable):
-            match self.type:
-                case AbstractType.ANY_INT:
-                    match b.type:
-                        case AbstractType.ANY_INT:
-                            return None
-
-                        case _:
-                            raise Exception(b.type)
-
-                case _:
-                    raise Exception(self.type)
-
-        else:
-            raise Exception(b)
+        raise Exception
 
     def __truediv__(self, b: AbstractVariable) -> AbstractVariable:
-        if isinstance(b, AbstractVariable):
-            match self.type:
-                case AbstractType.ANY_INT:
-                    match b.type:
-                        case AbstractType.ANY_INT:
-                            return AbstractVariable(AbstractType.ANY_INT)
-
-                        case _:
-                            raise Exception(b.type)
-
-                case _:
-                    raise Exception(self.type)
-
-        else:
-            raise Exception(b)
+        raise Exception
 
 
 class ProgramCounter:
@@ -316,6 +293,7 @@ class AbstractInterpreter:
                 self.log_operation(f"{binary_operant} {binary_type}")
 
             case "if":
+                raise Exception
                 if_condition: str = operation_json["condition"]
                 if_target: int = operation_json["target"]
                 operand_b = top_stack.operate_stack.pop()
@@ -394,6 +372,7 @@ class AbstractInterpreter:
                         raise Exception(result)
 
             case "ifz":
+                raise Exception
                 operand = top_stack.operate_stack.pop()
                 if operand == True:
                     operand = 1
@@ -502,10 +481,10 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows1"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows2"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
-        [],
+        [AbstractVariable(2)],
     )
     java_interpreter.run()
