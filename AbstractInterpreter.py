@@ -56,6 +56,8 @@ class AbstractVariable:
         return f"{str(self.type)}: {str(self.value)}"
 
     def __add__(self, b: AbstractVariable) -> AbstractVariable:
+        if not isinstance(b, AbstractVariable):
+            raise Exception
         match self.type:
             case AbstractType.ANY_INT:
                 match b.type:
@@ -69,6 +71,8 @@ class AbstractVariable:
                 raise Exception(self.type)
 
     def __sub__(self, b: AbstractVariable) -> AbstractVariable:
+        if not isinstance(b, AbstractVariable):
+            raise Exception
         match self.type:
             case AbstractType.INT:
                 match b.type:
@@ -82,26 +86,54 @@ class AbstractVariable:
                 raise Exception
 
     def __gt__(self, b: AbstractVariable) -> bool | None:
-        raise Exception
+        if not isinstance(b, AbstractVariable):
+            raise Exception
+        
 
     def __truediv__(self, b: AbstractVariable) -> AbstractVariable:
+        if not isinstance(b, AbstractVariable):
+            raise Exception
         match self.type:
             case AbstractType.INT:
                 match b.type:
                     case AbstractType.INT:
                         return AbstractVariable(int(self.value / self.value))
-                    
+
                     case _:
                         raise Exception
-            
+
             case AbstractType.ANY_INT:
                 match b.type:
                     case AbstractType.INT | AbstractType.ANY_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
-                    
+
                     case _:
                         raise Exception
-            
+
+            case _:
+                raise Exception
+
+    def __ne__(self, b: AbstractVariable) -> bool | None:
+        if not isinstance(b, AbstractVariable):
+            raise Exception
+
+        match self.type:
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return self.value != b.value
+
+                    case _:
+                        raise Exception
+
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.INT | AbstractType.ANY_INT:
+                        return None
+
+                    case _:
+                        raise Exception
+
             case _:
                 raise Exception
 
@@ -311,7 +343,6 @@ class AbstractInterpreter:
                 self.log_operation(f"{binary_operant} {binary_type}")
 
             case "if":
-                raise Exception
                 if_condition: str = operation_json["condition"]
                 if_target: int = operation_json["target"]
                 operand_b = top_stack.operate_stack.pop()
@@ -321,49 +352,7 @@ class AbstractInterpreter:
                 )
                 match if_condition:
                     case "gt":
-                        if isinstance(operand_a, int):
-                            if isinstance(operand_b, int):
-                                result = operand_a > operand_b
-
-                            elif isinstance(operand_b, AbstractVariable):
-                                match operand_b.type:
-                                    case AbstractType.ANY_INT:
-                                        result = None
-
-                                    case _:
-                                        raise Exception(operand_b.type)
-
-                            else:
-                                raise Exception(operand_b)
-                        else:
-                            result = operand_a > operand_b
-
-                    case "le":
-                        if isinstance(operand_a, int):
-                            if isinstance(operand_b, int):
-                                result = operand_a <= operand_b
-
-                            elif isinstance(operand_b, AbstractVariable):
-                                match operand_b.type:
-                                    case AbstractType.ANY_INT:
-                                        result = None
-
-                                    case _:
-                                        raise Exception(operand_b.type)
-
-                            else:
-                                raise Exception(operand_b)
-
-                        elif isinstance(operand_a, AbstractVariable):
-                            if isinstance(operand_b, int):
-                                result = None
-                            elif isinstance(operand_b, AbstractVariable):
-                                result = None
-                            else:
-                                raise Exception
-
-                        else:
-                            raise Exception
+                        result = operand_a > operand_b
 
                     case _:
                         raise Exception(if_condition)
@@ -390,33 +379,45 @@ class AbstractInterpreter:
                         raise Exception(result)
 
             case "ifz":
-                raise Exception
                 operand = top_stack.operate_stack.pop()
                 if operand == True:
-                    operand = 1
+                    operand = AbstractVariable(1)
                 elif operand == False:
-                    operand = 0
+                    operand = AbstractVariable(0)
 
                 ifz_condition = operation_json["condition"]
                 ifz_target = operation_json["target"]
-                match ifz_condition:
-                    case "ne":
-                        result = operand != 0
-                        match result:
-                            case False:
-                                None  # do nothing
 
-                            case True:
-                                top_stack.program_counter.index = if_target - 1
-
-                            case _:
-                                raise Exception(result)
-
-                    case _:
-                        raise Exception(ifz_condition)
                 self.log_operation(
                     f"{opr_type}, condition: {ifz_condition}, target: {ifz_target}"
                 )
+                match ifz_condition:
+                    case "ne":
+                        result = operand != AbstractVariable(0)
+
+                    case _:
+                        raise Exception(ifz_condition)
+
+                match result:
+                    case False:
+                        None  # do nothing
+
+                    case True:
+                        top_stack.program_counter.index = ifz_target - 1
+
+                    case None:
+                        new_state = deepcopy(state)
+                        new_state.id = self.id_generator.get_new_id()
+                        self.log_operation(
+                            f"------create new state, id: {new_state.id}------"
+                        )
+                        self.log_state(new_state)
+                        next_state_list.append(new_state)
+
+                        top_stack.program_counter.index = ifz_target - 1
+
+                    case _:
+                        raise Exception(result)
 
             case "new":
                 class_name = operation_json["class"]
@@ -499,7 +500,7 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows3"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows4"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
