@@ -79,8 +79,11 @@ class AbstractVariable:
                     case AbstractType.INT:
                         return AbstractVariable(self.value - b.value)
 
+                    case AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
+
                     case _:
-                        raise Exception
+                        raise Exception(b.type)
 
             case _:
                 raise Exception
@@ -94,8 +97,11 @@ class AbstractVariable:
                     case AbstractType.INT:
                         return self.value > b.value
 
+                    case AbstractType.ANY_INT:
+                        return None
+
                     case _:
-                        raise Exception
+                        raise Exception(b.type)
 
             case AbstractType.ANY_INT:
                 match b.type:
@@ -130,7 +136,6 @@ class AbstractVariable:
 
             case _:
                 raise Exception
-        
 
     def __truediv__(self, b: AbstractVariable) -> AbstractVariable:
         if not isinstance(b, AbstractVariable):
@@ -384,6 +389,20 @@ class AbstractInterpreter:
 
                 self.log_operation(f"{binary_operant} {binary_type}")
 
+            case "negate":
+                negate_type = operation_json["type"]
+                operand = top_stack.operate_stack.pop()
+                match negate_type:
+                    case "int":
+                        result = AbstractVariable(0) - operand
+
+                    case _:
+                        raise Exception(negate_type)
+
+                top_stack.operate_stack.append(result)
+
+                self.log_operation(f"{opr_type}, {negate_type}")
+
             case "if":
                 if_condition: str = operation_json["condition"]
                 if_target: int = operation_json["target"]
@@ -395,7 +414,7 @@ class AbstractInterpreter:
                 match if_condition:
                     case "gt":
                         result = operand_a > operand_b
-                    
+
                     case "le":
                         result = operand_a <= operand_b
 
@@ -439,6 +458,9 @@ class AbstractInterpreter:
                 match ifz_condition:
                     case "ne":
                         result = operand != AbstractVariable(0)
+
+                    case "le":
+                        result = operand <= AbstractVariable(0)
 
                     case _:
                         raise Exception(ifz_condition)
@@ -545,13 +567,13 @@ class AbstractInterpreter:
 # test code
 if __name__ == "__main__":
     java_program = JavaProgram(
-        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows4"
+        "course-02242-examples", "eu/bogoe/dtu/exceptional/Arithmetics", "alwaysThrows5"
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(AbstractType.ANY_INT),
-            AbstractVariable(1),
+            AbstractVariable(2),
+            AbstractVariable(3),
         ],
     )
     java_interpreter.run()
