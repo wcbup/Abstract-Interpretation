@@ -144,7 +144,7 @@ class AbstractVariable:
             case AbstractType.INT:
                 match b.type:
                     case AbstractType.INT:
-                        return AbstractVariable(int(self.value / self.value))
+                        return AbstractVariable(int(self.value / b.value))
 
                     case _:
                         raise Exception
