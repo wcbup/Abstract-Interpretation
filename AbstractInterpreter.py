@@ -88,6 +88,25 @@ class AbstractVariable:
     def __gt__(self, b: AbstractVariable) -> bool | None:
         if not isinstance(b, AbstractVariable):
             raise Exception
+        match self.type:
+            case AbstractType.INT:
+                match b.type:
+                    case AbstractType.INT:
+                        return self.value > b.value
+
+                    case _:
+                        raise Exception
+
+            case AbstractType.ANY_INT:
+                match b.type:
+                    case AbstractType.INT | AbstractType.ANY_INT:
+                        return None
+
+                    case _:
+                        raise Exception
+
+            case _:
+                raise Exception
         
 
     def __truediv__(self, b: AbstractVariable) -> AbstractVariable:
