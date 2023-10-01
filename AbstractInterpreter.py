@@ -403,6 +403,11 @@ class AbstractInterpreter:
 
                 self.log_operation(f"{opr_type}, {negate_type}")
 
+            case "goto":
+                goto_target = operation_json["target"]
+                top_stack.program_counter.index = goto_target - 1
+                self.log_operation(f"{opr_type}, target: {goto_target}")
+
             case "if":
                 if_condition: str = operation_json["condition"]
                 if_target: int = operation_json["target"]
