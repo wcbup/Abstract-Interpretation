@@ -673,14 +673,20 @@ class AbstractInterpreter:
             print(" ", exception_type)
         print()
 
-    def run(self) -> None:
+    def run(self, step_limit: int) -> None:
         self.log_start()
 
-        while len(self.state_list) > 0:
+        index = 0
+        while len(self.state_list) > 0 and index < step_limit:
+            index +=1
+
             next_state_list: List[AbstractState] = []
             for state in self.state_list:
                 next_state_list += self.step(state)
             self.state_list = next_state_list
+        
+        if index == step_limit:
+            print("Reach the step limit, exit!")
 
         self.log_exception()
 
@@ -690,13 +696,13 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "neverThrows4",
+        "speedVsPrecision",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
-            AbstractVariable(AbstractType.ANY_INT),
-            AbstractVariable(AbstractType.ANY_INT),
+            AbstractVariable(1),
+            AbstractVariable(4),
         ],
     )
-    java_interpreter.run()
+    java_interpreter.run(100)
