@@ -156,7 +156,7 @@ class AbstractVariable:
 
             case AbstractType.ANY_INT:
                 match b.type:
-                    case AbstractType.INT | AbstractType.ANY_INT | AbstractType.NOT_NEGATIVE_INT:
+                    case AbstractType.INT | AbstractType.ANY_INT | AbstractType.NOT_NEGATIVE_INT | AbstractType.NOT_POSITIVE_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
 
                     case _:
@@ -256,7 +256,9 @@ class AbstractVariable:
             case _:
                 raise Exception
 
-    def __lt__(self, b: AbstractVariable) -> (
+    def __lt__(
+        self, b: AbstractVariable
+    ) -> (
         bool
         | None
         | Tuple[
@@ -312,7 +314,7 @@ class AbstractVariable:
 
                     case _:
                         raise Exception(b.type)
-            
+
             case AbstractType.POSITIVE_INT:
                 match b.type:
                     case AbstractType.INT:
@@ -320,7 +322,7 @@ class AbstractVariable:
                             return False
                         else:
                             return None
-                    
+
                     case _:
                         raise Exception(b.type)
 
@@ -766,6 +768,28 @@ class AbstractInterpreter:
 
                         top_stack.program_counter.index = if_target - 1
 
+                    case tuple():
+                        true_variables, false_variables = result
+                        false_state = deepcopy(state)
+                        false_state.id = self.id_generator.get_new_id()
+                        for variable in false_variables:
+                            if variable.memory_id != None:
+                                false_state.stack[-1].local_variables[
+                                    variable.memory_id
+                                ] = variable
+                        self.log_operation(
+                            f"------create new state, id: {false_state.id}------"
+                        )
+                        self.log_state(false_state)
+                        next_state_list.append(false_state)
+
+                        for variable in true_variables:
+                            if variable.memory_id != None:
+                                state.stack[-1].local_variables[
+                                    variable.memory_id
+                                ] = variable
+                        top_stack.program_counter.index = if_target - 1
+
                     case _:
                         raise Exception(result)
 
@@ -934,7 +958,7 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "neverThrows4",
+        "alwaysThrows4",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
