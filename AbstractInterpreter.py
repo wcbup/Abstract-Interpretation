@@ -12,6 +12,7 @@ class AbstractMode(Enum):
     ANY_INT = "Any Int"
     SIGN = "Sign"
 
+
 ABSTRACT_MODE = AbstractMode.SIGN
 
 
@@ -141,19 +142,27 @@ class AbstractVariable:
                     case AbstractType.ANY_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
 
+                    case AbstractType.POSITIVE_INT:
+                        if self.value > 0:
+                            return AbstractVariable(AbstractType.POSITIVE_INT)
+                        elif self.value < 0:
+                            return AbstractVariable(AbstractType.NEGATIVE_INT)
+                        else:
+                            return AbstractVariable(0)
+
                     case _:
                         raise Exception(b.type)
 
             case AbstractType.ANY_INT:
                 match b.type:
-                    case AbstractType.INT | AbstractType.ANY_INT:
+                    case AbstractType.INT | AbstractType.ANY_INT | AbstractType.NOT_NEGATIVE_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
 
                     case _:
-                        raise Exception
+                        raise Exception(b.type)
 
             case _:
-                raise Exception
+                raise Exception(self.type)
 
     def __ge__(self, b: AbstractVariable) -> bool | None:
         if not isinstance(b, AbstractVariable):
@@ -282,7 +291,7 @@ class AbstractVariable:
                                 false_variables[0].memory_id = self.memory_id
                                 false_variables[1].memory_id = b.memory_id
                                 return true_variables, false_variables
-                            
+
                             case _:
                                 raise Exception(ABSTRACT_MODE)
 
