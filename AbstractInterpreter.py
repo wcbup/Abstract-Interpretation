@@ -107,6 +107,14 @@ class AbstractVariable:
                     case AbstractType.ANY_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
 
+                    case AbstractType.NOT_POSITIVE_INT:
+                        if self.value == 0:
+                            return AbstractVariable(AbstractType.NOT_NEGATIVE_INT)
+                        elif self.value > 0:
+                            return AbstractVariable(AbstractType.POSITIVE_INT)
+                        else:
+                            return AbstractVariable(AbstractType.ANY_INT)
+
                     case _:
                         raise Exception(b.type)
 
