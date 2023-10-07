@@ -77,7 +77,7 @@ class AbstractVariable:
         match self.type:
             case AbstractType.ANY_INT:
                 match b.type:
-                    case AbstractType.ANY_INT | AbstractType.INT:
+                    case AbstractType.ANY_INT | AbstractType.INT | AbstractType.POSITIVE_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
 
                     case _:
@@ -886,7 +886,7 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "neverThrows2",
+        "neverThrows3",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
