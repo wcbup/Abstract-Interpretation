@@ -7,6 +7,7 @@ import json
 
 JSON_CONTENT = Dict[str, Union[str, List[Union[str, Dict]], Dict]]
 
+
 class AbstractMode(Enum):
     ANY_INT = "Any Int"
     SIGN = "Sign"
@@ -39,8 +40,8 @@ class AbstractType(Enum):
     INT = "Int"
     VOID = "Void"
     ANY_INT = "Any Int"  # any int value
-    POSITIVE_INT = "Positive Int" # positive int
-    NEGATIVE_INT = "Negative Int" # negative int
+    POSITIVE_INT = "Positive Int"  # positive int
+    NEGATIVE_INT = "Negative Int"  # negative int
 
 
 class ExceptionType(Enum):
@@ -48,7 +49,10 @@ class ExceptionType(Enum):
 
 
 class AbstractVariable:
-    def __init__(self, variable: AbstractType | int) -> None:
+    def __init__(
+        self, variable: AbstractType | int, memory_id: None | int = None
+    ) -> None:
+        self.memory_id = memory_id # the index in the memory
         if isinstance(variable, AbstractType):
             self.type = variable
             self.value = None
@@ -298,11 +302,11 @@ class ProgramCounter:
 class AbstractMethodStack:
     def __init__(
         self,
-        parameters: Dict[int, Union[AbstractVariable, int]],
+        parameters: Dict[int, AbstractVariable],
         java_method: JavaMethod,
     ) -> None:
         self.local_variables = parameters
-        self.operate_stack: List[Union[AbstractVariable, int, bool]] = []
+        self.operate_stack: List[Union[AbstractVariable, bool]] = []
         self.program_counter = ProgramCounter(java_method)
 
 
@@ -349,6 +353,7 @@ class AbstractInterpreter:
 
         init_local_vars: Dict[AbstractVariable] = {}
         for i in range(len(init_peremeters)):
+            init_peremeters[i].memory_id = i
             init_local_vars[i] = init_peremeters[i]
         init_method_stack = AbstractMethodStack(
             init_local_vars, self.java_program.init_method
@@ -425,6 +430,7 @@ class AbstractInterpreter:
                 store_value = top_stack.operate_stack.pop()
                 match store_type:
                     case "int":
+                        store_value.memory_id = store_index
                         top_stack.local_variables[store_index] = store_value
                         self.log_operation(f"{opr_type}, type: {store_type}")
 
@@ -715,7 +721,7 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "neverThrows4",
+        "alwaysThrows5",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
