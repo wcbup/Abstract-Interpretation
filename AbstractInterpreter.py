@@ -7,6 +7,10 @@ import json
 
 JSON_CONTENT = Dict[str, Union[str, List[Union[str, Dict]], Dict]]
 
+class AbstractMode(Enum):
+    ANY_INT = "Any Int"
+    SIGN = "Sign"
+
 
 class JavaMethod:
     def __init__(self, json_content: JSON_CONTENT) -> None:
@@ -35,6 +39,8 @@ class AbstractType(Enum):
     INT = "Int"
     VOID = "Void"
     ANY_INT = "Any Int"  # any int value
+    POSITIVE_INT = "Positive Int" # positive int
+    NEGATIVE_INT = "Negative Int" # negative int
 
 
 class ExceptionType(Enum):
@@ -329,7 +335,7 @@ class AbstractState:
     def __init__(self, id: int, stack: List[AbstractMethodStack]) -> None:
         self.id = id
         self.stack = stack
-        self.return_value: int | AbstractVariable = AbstractVariable(AbstractType.VOID)
+        self.return_value = AbstractVariable(AbstractType.VOID)
 
 
 class AbstractInterpreter:
@@ -341,7 +347,7 @@ class AbstractInterpreter:
         init_stack: List[AbstractMethodStack] = []
         self.id_generator = IdGenerator()
 
-        init_local_vars: Dict[int, AbstractVariable] = {}
+        init_local_vars: Dict[AbstractVariable] = {}
         for i in range(len(init_peremeters)):
             init_local_vars[i] = init_peremeters[i]
         init_method_stack = AbstractMethodStack(
@@ -709,13 +715,13 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "alwaysThrows2",
+        "neverThrows4",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
         [
             AbstractVariable(AbstractType.ANY_INT),
-            AbstractVariable(4),
+            AbstractVariable(AbstractType.ANY_INT),
         ],
     )
-    java_interpreter.run(100)
+    java_interpreter.run(1000)
