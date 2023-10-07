@@ -548,7 +548,11 @@ class AbstractInterpreter:
                                     self.yes_exception_set.add(exception_type)
                                     state.stack.clear()  # empty the stack, simply return
                                     self.log_operation("exiting")
-                                elif operand_b.type == AbstractType.ANY_INT:
+                                elif (
+                                    operand_b.type == AbstractType.ANY_INT
+                                    or operand_b.type == AbstractType.NOT_NEGATIVE_INT
+                                    or operand_b.type == AbstractType.NOT_POSITIVE_INT
+                                ):
                                     # record the exception
                                     exception_type = ExceptionType.ARITHMETIC_EXCEPTION
                                     self.log_operation(
