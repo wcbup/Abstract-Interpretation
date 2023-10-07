@@ -122,7 +122,15 @@ class AbstractVariable:
 
             case AbstractType.ANY_INT:
                 match b.type:
-                    case AbstractType.INT | AbstractType.ANY_INT:
+                    case AbstractType.INT | AbstractType.ANY_INT | AbstractType.POSITIVE_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
+
+                    case _:
+                        raise Exception(b.type)
+
+            case AbstractType.POSITIVE_INT:
+                match b.type:
+                    case AbstractType.POSITIVE_INT:
                         return AbstractVariable(AbstractType.ANY_INT)
 
                     case _:
@@ -746,7 +754,7 @@ class AbstractInterpreter:
 
                     case "ge":
                         result = operand_a >= operand_b
-                    
+
                     case "lt":
                         result = operand_a < operand_b
 
