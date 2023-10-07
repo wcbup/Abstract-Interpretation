@@ -12,6 +12,8 @@ class AbstractMode(Enum):
     ANY_INT = "Any Int"
     SIGN = "Sign"
 
+ABSTRACT_MODE = AbstractMode.SIGN
+
 
 class JavaMethod:
     def __init__(self, json_content: JSON_CONTENT) -> None:
@@ -42,6 +44,8 @@ class AbstractType(Enum):
     ANY_INT = "Any Int"  # any int value
     POSITIVE_INT = "Positive Int"  # positive int
     NEGATIVE_INT = "Negative Int"  # negative int
+    NOT_POSITIVE_INT = "Not Positive Int"  # not positive int
+    NOT_NEGATIVE_INT = "Not Negative Int"  # not negative int
 
 
 class ExceptionType(Enum):
@@ -52,7 +56,7 @@ class AbstractVariable:
     def __init__(
         self, variable: AbstractType | int, memory_id: None | int = None
     ) -> None:
-        self.memory_id = memory_id # the index in the memory
+        self.memory_id = memory_id  # the index in the memory
         if isinstance(variable, AbstractType):
             self.type = variable
             self.value = None
@@ -218,7 +222,23 @@ class AbstractVariable:
             case _:
                 raise Exception
 
-    def __le__(self, b: AbstractVariable) -> bool | None:
+    def __le__(
+        self, b: AbstractVariable
+    ) -> (
+        bool
+        | None
+        | Tuple[
+            Tuple[AbstractVariable, AbstractVariable],
+            Tuple[AbstractVariable, AbstractVariable],
+        ]
+    ):
+        """
+        return bool if result is specific
+        return None if result is unkown
+        return Tuple with update variabls tuples,
+            the first tuple is the variables when result is true
+            the second tuple is the variables when result is false
+        """
         if not isinstance(b, AbstractVariable):
             raise Exception
         match self.type:
@@ -232,8 +252,31 @@ class AbstractVariable:
 
             case AbstractType.ANY_INT:
                 match b.type:
-                    case AbstractType.INT | AbstractType.ANY_INT:
+                    case AbstractType.ANY_INT:
                         return None
+
+                    case AbstractType.INT:
+                        match ABSTRACT_MODE:
+                            case AbstractMode.ANY_INT:
+                                return None
+
+                            case AbstractMode.SIGN:
+                                true_variables = (
+                                    AbstractVariable(AbstractType.NOT_POSITIVE_INT),
+                                    AbstractVariable(0),
+                                )
+                                true_variables[0].memory_id = self.memory_id
+                                true_variables[1].memory_id = b.memory_id
+                                false_variables = (
+                                    AbstractVariable(AbstractType.POSITIVE_INT),
+                                    AbstractVariable(0),
+                                )
+                                false_variables[0].memory_id = self.memory_id
+                                false_variables[1].memory_id = b.memory_id
+                                return true_variables, false_variables
+                            
+                            case _:
+                                raise Exception(ABSTRACT_MODE)
 
                     case _:
                         raise Exception
@@ -627,6 +670,28 @@ class AbstractInterpreter:
                         self.log_state(new_state)
                         next_state_list.append(new_state)
 
+                        top_stack.program_counter.index = ifz_target - 1
+
+                    case tuple():
+                        true_variables, false_variables = result
+                        false_state = deepcopy(state)
+                        false_state.id = self.id_generator.get_new_id()
+                        for variable in false_variables:
+                            if variable.memory_id != None:
+                                false_state.stack[-1].local_variables[
+                                    variable.memory_id
+                                ] = variable
+                        self.log_operation(
+                            f"------create new state, id: {false_state.id}------"
+                        )
+                        self.log_state(false_state)
+                        next_state_list.append(false_state)
+
+                        for variable in true_variables:
+                            if variable.memory_id != None:
+                                state.stack[-1].local_variables[
+                                    variable.memory_id
+                                ] = variable
                         top_stack.program_counter.index = ifz_target - 1
 
                     case _:
