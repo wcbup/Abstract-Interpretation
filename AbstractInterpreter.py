@@ -47,6 +47,7 @@ class AbstractType(Enum):
     NEGATIVE_INT = "Negative Int"  # negative int
     NOT_POSITIVE_INT = "Not Positive Int"  # not positive int
     NOT_NEGATIVE_INT = "Not Negative Int"  # not negative int
+    NOT_ZERO = "Not Zero" # not zero
 
 
 class ExceptionType(Enum):
@@ -301,7 +302,23 @@ class AbstractVariable:
             case _:
                 raise Exception
 
-    def __ne__(self, b: AbstractVariable) -> bool | None:
+    def __ne__(
+        self, b: AbstractVariable
+    ) -> (
+        bool
+        | None
+        | Tuple[
+            Tuple[AbstractVariable, AbstractVariable],
+            Tuple[AbstractVariable, AbstractVariable],
+        ]
+    ):
+        """
+        return bool if result is specific
+        return None if result is unkown
+        return Tuple with update variabls tuples,
+            the first tuple is the variables when result is true
+            the second tuple is the variables when result is false
+        """
         if not isinstance(b, AbstractVariable):
             raise Exception
 
@@ -316,8 +333,23 @@ class AbstractVariable:
 
             case AbstractType.ANY_INT:
                 match b.type:
-                    case AbstractType.INT | AbstractType.ANY_INT:
+                    case AbstractType.ANY_INT:
                         return None
+
+                    case AbstractType.INT:
+                        true_variables = (
+                            AbstractVariable(AbstractType.NOT_ZERO),
+                            AbstractVariable(0),
+                        )
+                        true_variables[0].memory_id = self.memory_id
+                        true_variables[1].memory_id = b.memory_id
+                        false_variables = (
+                            AbstractVariable(0),
+                            AbstractVariable(0),
+                        )
+                        false_variables[0].memory_id = self.memory_id
+                        false_variables[1].memory_id = b.memory_id
+                        return true_variables, false_variables
 
                     case _:
                         raise Exception
@@ -807,7 +839,7 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "alwaysThrows5",
+        "neverThrows2",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
