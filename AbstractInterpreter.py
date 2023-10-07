@@ -746,6 +746,9 @@ class AbstractInterpreter:
 
                     case "ge":
                         result = operand_a >= operand_b
+                    
+                    case "lt":
+                        result = operand_a < operand_b
 
                     case _:
                         raise Exception(if_condition)
@@ -958,7 +961,7 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "alwaysThrows4",
+        "itDependsOnLattice3",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
