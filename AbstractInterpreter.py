@@ -170,6 +170,14 @@ class AbstractVariable:
                     case _:
                         raise Exception(b.type)
 
+            case AbstractType.POSITIVE_INT:
+                match b.type:
+                    case AbstractType.ANY_INT:
+                        return AbstractVariable(AbstractType.ANY_INT)
+
+                    case _:
+                        raise Exception(b.type)
+
             case _:
                 raise Exception(self.type)
 
@@ -969,7 +977,7 @@ if __name__ == "__main__":
     java_program = JavaProgram(
         "course-02242-examples",
         "eu/bogoe/dtu/exceptional/Arithmetics",
-        "itDependsOnLattice3",
+        "neverThrows2",
     )
     java_interpreter = AbstractInterpreter(
         java_program,
