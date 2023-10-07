@@ -337,19 +337,27 @@ class AbstractVariable:
                         return None
 
                     case AbstractType.INT:
-                        true_variables = (
-                            AbstractVariable(AbstractType.NOT_ZERO),
-                            AbstractVariable(0),
-                        )
-                        true_variables[0].memory_id = self.memory_id
-                        true_variables[1].memory_id = b.memory_id
-                        false_variables = (
-                            AbstractVariable(0),
-                            AbstractVariable(0),
-                        )
-                        false_variables[0].memory_id = self.memory_id
-                        false_variables[1].memory_id = b.memory_id
-                        return true_variables, false_variables
+                        match ABSTRACT_MODE:
+                            case AbstractMode.ANY_INT:
+                                return None
+
+                            case AbstractMode.SIGN:
+                                true_variables = (
+                                    AbstractVariable(AbstractType.NOT_ZERO),
+                                    AbstractVariable(0),
+                                )
+                                true_variables[0].memory_id = self.memory_id
+                                true_variables[1].memory_id = b.memory_id
+                                false_variables = (
+                                    AbstractVariable(0),
+                                    AbstractVariable(0),
+                                )
+                                false_variables[0].memory_id = self.memory_id
+                                false_variables[1].memory_id = b.memory_id
+                                return true_variables, false_variables
+                            
+                            case _:
+                                raise Exception(ABSTRACT_MODE)
 
                     case _:
                         raise Exception
